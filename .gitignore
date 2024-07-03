@@ -1,0 +1,13 @@
+node_modules/
+_node_modules/git
+coverage
+yarn-error.log
+*.png
+*.mp4
+.prettierrc
+downloads
+/test-results/
+/playwright-report/
+/cypress/reports/
+package-lock.json
+

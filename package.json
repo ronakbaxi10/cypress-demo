@@ -1,0 +1,22 @@
+{
+  "name": "processvue-guardian-test-automation-framework",
+  "version": "1.0.0",
+  "description": "Cypress Test Automation Framework for ProcessVue Guardian",
+  "main": "index.js",
+  "_comment": "The scripts section can be used to create SHORTCUTS that can then be ran using npm run followed by the script name e.g. npm run chrome",
+  "scripts": {
+    "chrome": "npx cypress run --browser chrome --headed",
+    "edge": "npx cypress run --browser edge --headed",
+    "electron": "npx cypress run --browser electron --headed"
+  },
+  "author": "Matthew Hayhurst",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.11.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "eslint": "^7.18.0",
+    "eslint-plugin-cypress": "^3.3.0",
+    "cypress-xpath": "^2.0.1",
+    "cypress-real-events": "^1.12.0"
+  }
+}
