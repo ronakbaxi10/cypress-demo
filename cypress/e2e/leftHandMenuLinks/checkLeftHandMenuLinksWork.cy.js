@@ -8,7 +8,7 @@ describe('Check Left Hand Menu Links are Working', () => {
 
   it('Check all Left Hand Menu Links are Working', () => {
     cy.visit('/guardian/Default.aspx');  
-    LogInPage.loginRememberMe(username,password)
+    LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
     HomePage.clickAndCheckLeftHandMenuLink('Dashboards');
