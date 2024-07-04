@@ -24,7 +24,6 @@ describe('Check all Top Menu Links are Working', () => {
     //Test the System Sub Menus
     HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Activity');
     HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Event');
-    cy.go('back')
     HomePage.logOut();
 });
 })
