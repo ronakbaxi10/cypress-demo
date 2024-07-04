@@ -67,7 +67,7 @@ After you run a test a HTML Test REport should be written and the console should
 
 Create HTML report
 HTML report successfully created!
-C:\dev\repositories\processvue-analyser-test-automation-framework\cypress\reports\html\index.html
+C:\dev\repositories\processvue-guardian-test-automation-framework\cypress\reports\html\index.html
 
 For info in how I added and configured this report read this:
 
@@ -729,7 +729,7 @@ and the element will be clicked even if it is not currently visible.
 
 For example:
 
-logout(){
+logOut(){
   this.logOutButton
   .click({force: true})
 }

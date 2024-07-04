@@ -4,16 +4,24 @@ import SharedFunctions from './sharedFunctions';
 //Shared functions go in sharedFunctions.js (which is linked to basePage.js)
 
 class BasePage extends SharedFunctions {
-    get logoutLink() {
-		return cy.get('a[title="Logout"]');
-	}    
+
+  
+  get userProfileIcon() {
+		return cy.get('#userProfileImageUserMenu');
+	} 
+
+  get logOutButton() {
+		return cy.get('#loginStatus');
+	}   
 
   //Side menu links
 
 ///////////////////////////////////////////////////////////////////////
 
-logout(){
-    this.hoverOverElement(this.userIcon)
+logOut(){
+    this.userProfileIcon
+      .should('be.visible')
+      .click();
     this.logOutButton
     .should('be.visible')
     .click();

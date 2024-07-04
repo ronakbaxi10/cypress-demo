@@ -40,7 +40,7 @@ module.exports = defineConfig(
     env: {
       username: 'pvadmin',
       password: 'pvadmin12345#',
-      analyserVersion: 'V4.0.0.124'
+      guardianVersion: 'V1.11.0.39'
     },
 
     setupNodeEvents(on, config) {

@@ -3,27 +3,27 @@ import BasePage from '../basePage';
 class loginPage extends BasePage {
 
   get usernameTextBox() {
-		return cy.get('#ctl00_Main_login_UserName');
+		return cy.get('#loginControl_UserName');
 	} 
 
   get passwordTextBox() {
-		return cy.get('#ctl00_Main_login_Password');
+		return cy.get('#loginControl_Password');
 	} 
 
   get logInButton() {
-		return cy.get('#ctl00_Main_login_LoginButton');
+		return cy.get('#loginControl_aspLoginButton');
 	} 
 
   get warningBox() {
-		return cy.get('#ctl00_Main_login_warningBox');
+		return cy.get('.warning-box');
 	} 
 
   get rememberMeCheckBox() {
-		return cy.get('#ctl00_Main_login_RememberMe');
+		return cy.get('#loginControl_RememberMe');
 	}  
 
-  get analyserVersionField() {
-		return cy.get('span[id="ctl00_Main_labVersion"]');
+  get guardianVersionField() {
+		return cy.get('#headerVersionLabel');
 	}  
 
   login(username,password){
@@ -55,10 +55,10 @@ class loginPage extends BasePage {
   }
 
   confirmLoggedIn(){
-    this.logoutLink
-    .should('exist')
-    this.userIcon
-    .should('be.visible')
+    this.logOutButton
+    .should('exist');
+    this.userProfileIcon
+    .should('be.visible');
   }
 
   checkInvalidLoginMessageExists(expectedMessage) {
@@ -73,10 +73,10 @@ class loginPage extends BasePage {
       .click();    
   }
 
-  assertAnalyserVersion(expectedAnalyserVersion){
-    this.analyserVersionField
+  assertGuardianVersion(expectedGuardianVersion){
+    this.guardianVersionField
     .should('be.visible')
-    .should('have.text',expectedAnalyserVersion);
+    .should('have.text','Version ' + expectedGuardianVersion);
   }
 }  
 

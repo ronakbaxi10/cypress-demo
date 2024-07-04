@@ -8,8 +8,8 @@ describe('Successful Login', () => {
 
   it('Successful Login', () => {
     cy.task("log","******************************Attempting a successful Login***************************");
-    cy.visit('/analyser/Default.aspx');  
+    cy.visit('/guardian/Default.aspx');  
     LogInPage.login(username,password);
-    HomePage.logout();  
+    HomePage.logOut();  
 });
 })
