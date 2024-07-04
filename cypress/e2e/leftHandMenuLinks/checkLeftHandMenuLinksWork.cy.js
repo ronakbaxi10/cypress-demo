@@ -4,9 +4,9 @@ import HomePage from '../../pageObjects/homePage.js';
 let username = Cypress.env('username')
 let password = Cypress.env('password')
 
-describe('Check all Top Menu Links are Working', () => {
+describe('Check Left Hand Menu Links are Working', () => {
 
-  it('Check all Top Menu Links are Working', () => {
+  it('Check all Left Hand Menu Links are Working', () => {
     cy.visit('/guardian/Default.aspx');  
     LogInPage.loginRememberMe(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');

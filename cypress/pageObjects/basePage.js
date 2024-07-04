@@ -46,15 +46,10 @@ get actionListLeftHandMenuLink() {
 } 
 
 get adminLeftHandMenuLink() {
-  return cy.xpath('//span[contains(text(),"Admin")]');
-} 
-
-get adminTreeViewMenu() {
-  return cy.get('ul[id=adminViewLinks]');
+  return cy.get('#adminMenu');
 } 
 
 get systemLeftHandMenuLink() {
-  //return cy.get('.sidebar-menu > li:nth-child(9) span');
   return cy.get('#systemMenu');  
 } 
 
@@ -178,9 +173,9 @@ clickAndCheckLeftHandMenuLink(linkToTest){
   clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
     //Open the Admin Drop Down menu if it is not already open
     this.coverWhilePageFullyLoads.should('not.be.visible');
-    this.adminTreeViewMenu.then($element => {
+    this.adminLeftHandMenuLink.then($element => {
       var attr = $element.attr('class');
-      if (attr == 'treeview-menu') {
+      if (attr == 'treeview') {
         cy.task("log","The admin menu is NOT already open - so opening it");
         this.adminLeftHandMenuLink
         .should('be.visible')
