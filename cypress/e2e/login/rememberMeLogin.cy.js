@@ -7,8 +7,7 @@ let password = Cypress.env('password')
 describe('Test that the Remember Me checkbox is working correctly', () => {
   it('Log in with Remember Me Checkbox selected - you should be auto logged in when you leave and return', () => {
     cy.visit('/guardian/Default.aspx');  
-    LogInPage.clickRememberMeCheckbox();
-    LogInPage.login(username,password);
+    LogInPage.loginRememberMe(username,password);
     //Leave Guardian and then return - you should be taken straight back in without having to log in again
     cy.visit('https://www.processvue.com');   
     cy.visit('/guardian/Default.aspx'); 

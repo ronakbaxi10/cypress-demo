@@ -41,7 +41,11 @@ get actionListLeftHandMenuLink() {
 } 
 
 get adminLeftHandMenuLink() {
-  return cy.get('.sidebar-menu > li:nth-child(8) span');
+  return cy.xpath('//span[contains(text(),"Admin")]');
+} 
+
+get adminTreeViewMenu() {
+  return cy.get('ul[id=adminViewLinks]');
 } 
 
 get systemLeftHandMenuLink() {
@@ -117,40 +121,40 @@ clickOnElement(element){
     this.loadingSpinner.should('not.be.visible');
 }
 
-clickLeftHandMenuLink(linkToTest){
+clickAndCheckLeftHandMenuLink(linkToTest){
   switch (linkToTest.toLowerCase()) {
         case 'projects overview':
           this.projectsOverviewLeftHandMenuLink
           .should('be.visible')
-          .click()
+          .click();
           cy.url().should('include', 'ProjectsOverview');
           this.topPageTitle.should('contain','Projects Overview')  
           break; 
         case 'master database':
           this.masterDatabaseLeftHandMenuLink
           .should('be.visible')
-          .click()
+          .click();
           cy.url().should('include', 'MasterDataViewer');
           this.topPageTitle.should('contain','Master Database')  
           break;  
         case 'dashboards':
           this.dashboardsLeftHandMenuLink
           .should('be.visible')
-          .click()
+          .click();
           cy.url().should('include', 'Dashboards');
           this.topPageTitle.should('contain','Dashboards')  
           break;  
         case 'reports':
           this.reportsLeftHandMenuLink
           .should('be.visible')
-          .click()
+          .click();
           cy.url().should('include', 'Reports');
           this.topPageTitle.should('contain','Reports')  
           break;  
         case 'action list':
           this.actionListLeftHandMenuLink
           .should('be.visible')
-          .click()
+          .click();
           cy.url().should('include', 'Actions');
           this.topPageTitle.should('contain','Action List')  
           break;  
@@ -159,8 +163,99 @@ clickLeftHandMenuLink(linkToTest){
             throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + linkToTest +'.');
           }) 
       }    
-}
+    }
 
+  clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
+    //Open the Admin Drop Down menu if it is not already open
+    cy.wait(2000);
+    this.adminTreeViewMenu.then($element => {
+      var attr = $element.attr('class');
+      if (attr == 'treeview-menu') {
+        cy.task("log","******************************The title attribute does NOT EXIST so clicking admin button! attr="+attr+"***************************");
+        this.adminLeftHandMenuLink
+        .should('be.visible')
+        .click(); 
+    }
+    else {
+      cy.task("log","******************************The title attribute DOES so NOT clicking admin button! attr="+attr+"***************************");
+       
+    }
+  })   
+    switch (linkToTest.toLowerCase()) {
+          case 'project manager':
+            this.admin_ProjectManagerLink
+            .should('be.visible')
+            .click();
+            cy.url().should('include', 'Projects');
+            this.topPageTitle.should('contain','Project Manager')  
+            break; 
+          case 'datasource manager':
+            this.admin_DatasourceManagerLink
+            .should('be.visible')
+            .click();
+            cy.url().should('include', 'Datasource');
+            this.topPageTitle.should('contain','Datasource Manager')  
+            break;  
+          case 'template manager':
+            this.admin_TemplateManagerLink
+            .should('be.visible')
+            .click();
+            cy.url().should('include', 'Templates');
+            this.topPageTitle.should('contain','Template Manager')  
+            break;  
+          case 'import/export manager':
+            this.admin_ImportExportManagerLink
+            .should('be.visible')
+            .click();
+            cy.url().should('include', 'ImportExport');
+            this.topPageTitle.should('contain','Import/Export Manager')  
+            break;  
+          case 'priority manager':
+            this.admin_PriorityManagerLink
+            .should('be.visible')
+            .click();
+            cy.url().should('include', 'Priority');
+            this.topPageTitle.should('contain','Priority Manager')  
+            break;  
+          case 'user manager':
+            this.admin_UserManagerLink
+            .should('be.visible')
+            .click();
+            cy.url().should('include', 'Users');
+            this.topPageTitle.should('contain','User Manager')  
+            break; 
+          default:
+            cy.get('body').then(() => {
+              throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + linkToTest +'.');
+            }) 
+      } 
+      } 
+
+  clickAndCheckLeftHandMenuLink_SystemSubMenu(linkToTest){
+    this.systemLeftHandMenuLink
+      .should('be.visible')
+      .click();
+    switch (linkToTest.toLowerCase()) {
+          case 'system activity':
+            this.system_SystemActivityLink
+            .should('be.visible')
+            .click()
+            cy.url().should('include', 'SystemActivity');
+            this.topPageTitle.should('contain','System Activity')  
+            break; 
+          case 'system event':
+            this.system_SystemEventLogLink
+            .should('be.visible')
+            .click()
+            cy.url().should('include', 'SystemEvent');
+            this.topPageTitle.should('contain','System Event')  
+            break;  
+          default:
+            cy.get('body').then(() => {
+              throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + linkToTest +'.');
+            }) 
+        }   
+      } 
 }
 
 export default BasePage;

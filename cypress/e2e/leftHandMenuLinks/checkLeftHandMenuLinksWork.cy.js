@@ -8,12 +8,22 @@ describe('Check all Top Menu Links are Working', () => {
 
   it('Check all Top Menu Links are Working', () => {
     cy.visit('/guardian/Default.aspx');  
-    LogInPage.login(username,password)
-    HomePage.clickLeftHandMenuLink('Projects Overview');
-    HomePage.clickLeftHandMenuLink('Master Database');
-    HomePage.clickLeftHandMenuLink('Dashboards');
-    HomePage.clickLeftHandMenuLink('Reports');
-    HomePage.clickLeftHandMenuLink('Action List');
+    LogInPage.loginRememberMe(username,password)
+    HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
+    HomePage.clickAndCheckLeftHandMenuLink('Master Database');
+    HomePage.clickAndCheckLeftHandMenuLink('Dashboards');
+    HomePage.clickAndCheckLeftHandMenuLink('Reports');
+    HomePage.clickAndCheckLeftHandMenuLink('Action List');
+    //Test the Admin Sub Menus
+    HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('Project Manager');
+    HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('Datasource Manager');
+    HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('Template Manager');
+    HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('Import/Export Manager');
+    HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('Priority Manager');
+    HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('User Manager');
+    //Test the System Sub Menus
+    //HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Activity');
+    //HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Event');
     cy.go('back')
     HomePage.logOut();
 });

@@ -33,6 +33,14 @@ class loginPage extends BasePage {
     this.confirmLoggedIn();
   }
 
+  loginRememberMe(username,password){
+    this.clickRememberMeCheckbox();
+    this.enterUserName(username);
+    this.enterPassword(password);
+    this.clickOnLogInButton();
+    this.confirmLoggedIn();
+  }
+
   enterUserName(username) {
     this.usernameTextBox
       .should('be.visible')
