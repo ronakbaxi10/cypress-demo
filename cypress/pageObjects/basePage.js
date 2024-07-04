@@ -18,6 +18,11 @@ class BasePage extends SharedFunctions {
     return cy.get('.content-header > h1');
   }
 
+  get coverWhilePageFullyLoads() {
+    return cy.get('#cover');
+  }
+  
+  
 //Left Hand menu links
 
 get projectsOverviewLeftHandMenuLink() {
@@ -49,7 +54,12 @@ get adminTreeViewMenu() {
 } 
 
 get systemLeftHandMenuLink() {
-  return cy.get('.sidebar-menu > li:nth-child(9) span');
+  //return cy.get('.sidebar-menu > li:nth-child(9) span');
+  return cy.get('#systemMenu');  
+} 
+
+get systemTreeViewMenu() {
+  return cy.get('ul[id=systemViewLinks]');
 } 
 
 get helpLeftHandMenuLink() {
@@ -89,7 +99,7 @@ get system_SystemActivityLink() {
 } 
 
 get system_SystemEventLogLink() {
-  return cy.get('.menu-open > li:nth-child(2) span');
+  return cy.get('.menu-open > li:nth-child(3) span');
 } 
 
 
@@ -167,18 +177,17 @@ clickAndCheckLeftHandMenuLink(linkToTest){
 
   clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
     //Open the Admin Drop Down menu if it is not already open
-    cy.wait(2000);
+    this.coverWhilePageFullyLoads.should('not.be.visible');
     this.adminTreeViewMenu.then($element => {
       var attr = $element.attr('class');
       if (attr == 'treeview-menu') {
-        cy.task("log","******************************The title attribute does NOT EXIST so clicking admin button! attr="+attr+"***************************");
+        cy.task("log","The admin menu is NOT already open - so opening it");
         this.adminLeftHandMenuLink
         .should('be.visible')
         .click(); 
     }
     else {
-      cy.task("log","******************************The title attribute DOES so NOT clicking admin button! attr="+attr+"***************************");
-       
+      cy.task("log","The admin menu IS already open!");
     }
   })   
     switch (linkToTest.toLowerCase()) {
@@ -232,22 +241,33 @@ clickAndCheckLeftHandMenuLink(linkToTest){
       } 
 
   clickAndCheckLeftHandMenuLink_SystemSubMenu(linkToTest){
-    this.systemLeftHandMenuLink
-      .should('be.visible')
-      .click();
+      //Open the Admin Drop Down menu if it is not already open
+      this.coverWhilePageFullyLoads.should('not.be.visible');
+      this.systemLeftHandMenuLink.then($element => {
+        var attr = $element.attr('class');
+        if (attr == 'treeview') {
+          cy.task("log","The system menu is NOT already open - so opening it");
+          this.systemLeftHandMenuLink
+          .should('be.visible')
+          .click(); 
+      }
+      else {
+        cy.task("log","The system menu IS already open!");
+      }
+    }) 
     switch (linkToTest.toLowerCase()) {
           case 'system activity':
             this.system_SystemActivityLink
             .should('be.visible')
             .click()
-            cy.url().should('include', 'SystemActivity');
+            cy.url().should('include', 'Activity');
             this.topPageTitle.should('contain','System Activity')  
             break; 
           case 'system event':
             this.system_SystemEventLogLink
             .should('be.visible')
             .click()
-            cy.url().should('include', 'SystemEvent');
+            cy.url().should('include', 'EventLog');
             this.topPageTitle.should('contain','System Event')  
             break;  
           default:

@@ -22,8 +22,8 @@ describe('Check all Top Menu Links are Working', () => {
     HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('Priority Manager');
     HomePage.clickAndCheckLeftHandMenuLink_AdminSubMenu('User Manager');
     //Test the System Sub Menus
-    //HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Activity');
-    //HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Event');
+    HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Activity');
+    HomePage.clickAndCheckLeftHandMenuLink_SystemSubMenu('System Event');
     cy.go('back')
     HomePage.logOut();
 });
