@@ -23,7 +23,7 @@ describe('Check Project Filters work correctly', () => {
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description','D1002');
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Has Alarm','Unchecked');
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Has Alarm','Unchecked'); //No date returned at the time of writing
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Has Alarm','Unchecked');
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Template','Digital');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Template','Digital');
@@ -32,13 +32,13 @@ describe('Check Project Filters work correctly', () => {
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Revision','0.0');
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Under Review By','pvadmin');
-    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Under Review By','Matt');  //No date returned at the time of writing
+    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Under Review By','Matt');  //No data returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Signed','signed');
-    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','signed');  //No date returned at the time of writing
+    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','signed');  //No data returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Status','Approved');
-    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved'); //No date returned at the time of writing
+    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved'); //No data returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
     HomePage.logOut();
 });

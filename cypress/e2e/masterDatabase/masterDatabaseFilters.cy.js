@@ -23,8 +23,8 @@ describe('Check Master Database Filters work correctly', () => {
     MasterDatabasePage.enterFilterValue('Template Name','Digital');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Template Name','Digital'); 
     MasterDatabasePage.clearSelectedFilters();
-    MasterDatabasePage.enterFilterValue('Has Alarms','Unchecked');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Has Alarms','Unchecked');
+    MasterDatabasePage.enterFilterValue('Has Alarms','Checked');
+    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Has Alarms','Checked');
     MasterDatabasePage.clearSelectedFilters();
     HomePage.logOut();
 });

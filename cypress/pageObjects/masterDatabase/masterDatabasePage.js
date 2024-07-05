@@ -15,18 +15,10 @@ get filterInputFieldsArray() {
 
 //Row 1 of Results Selectors = For checking values
 
-get tagNameRow1Result() {
-  return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td:nth-of-type(3)[class*="dxgv"]');
+get row1ResultFieldsArray() {
+  return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td');
 }
-get projectNameRow1Result() {
-  return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td:nth-of-type(4)[class*="dxgv"]');
-}
-get tagStatusRow1Result() {
-  return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td:nth-of-type(5)[class*="dxgv"]');
-}
-get templateNameRow1Result() {
-  return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td:nth-of-type(6)[class*="dxgv"]');
-}
+
 get  hasAlarmsRow1ResultIsChecked() {
   return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td:nth-of-type(7)[class*="dxgv"] .fa-solid');
 }
@@ -35,29 +27,29 @@ get  hasAlarmsRow1ResultIsChecked() {
 
 enterFilterValue(filterName, filterValue){
   let valueToEnter=filterValue+'{enter}'
-  switch (filterName.toLowerCase()) {
-    case 'tag name':
-      this.getColumnNumberAndEnterFilterText('Tag Name',valueToEnter)
+  switch (filterName) {
+    case 'Tag Name':
+      this.getColumnNumberAndEnterFilterText(filterName,valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
-    case 'project name':
-      this.getColumnNumberAndEnterFilterText('Project Name',valueToEnter)
+    case 'Project Name':
+      this.getColumnNumberAndEnterFilterText(filterName,valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
-    case 'tag status':
-      this.getColumnNumberAndEnterFilterText('Tag Status',valueToEnter)
+    case 'Tag Status':
+      this.getColumnNumberAndEnterFilterText(filterName,valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
-    case 'template name':
-      this.getColumnNumberAndEnterFilterText('Template Name',valueToEnter)
+    case 'Template Name':
+      this.getColumnNumberAndEnterFilterText(filterName,valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
-    case 'has alarms':
-      this.getColumnNumberAndEnterFilterText('Has Alarms',valueToEnter)
+    case 'Has Alarms':
+      this.getColumnNumberAndEnterFilterText(filterName,valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -83,34 +75,21 @@ getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
 }
 
 checkRow1ColumnFieldContainsValue(columnName, expectedValue){
-  switch (columnName.toLowerCase()) {
-    case 'tag name':
-      this.tagNameRow1Result
-        .should('be.visible')
-        .should('contain',expectedValue);
+  switch (columnName) {
+    case 'Tag Name':
+      this.getColumnNumberAndCheckValue(columnName, expectedValue);
       break; 
-    case 'project name':
-      this.projectNameRow1Result
-        .should('be.visible')
-        .should('contain',expectedValue);
+    case 'Project Name':
+      this.getColumnNumberAndCheckValue(columnName, expectedValue);
       break; 
-    case 'tag status':
-      this.tagStatusRow1Result
-        .should('be.visible')
-        .should('contain',expectedValue);
+    case 'Tag Status':
+      this.getColumnNumberAndCheckValue(columnName, expectedValue);
       break; 
-    case 'template name':
-      this.templateNameRow1Result
-        .should('be.visible')
-        .should('contain',expectedValue);
-    break; 
-    case 'has alarms':
-      if (expectedValue.toLowerCase() == 'checked') {
-        this.hasAlarmsRow1ResultIsChecked.should('be.visible');
-      }
-      else if (expectedValue.toLowerCase() == 'unchecked') {
-        this.hasAlarmsRow1ResultIsChecked.should('not.exist');
-      }
+    case 'Template Name':
+      this.getColumnNumberAndCheckValue(columnName, expectedValue);
+      break; 
+    case 'Has Alarms':
+      this.getColumnNumberAndCheckValue(columnName, expectedValue);
     break; 
     default:
       cy.get('body').then(() => {
@@ -119,5 +98,34 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
   }  
 }
 
+getColumnNumberAndCheckValue(filterTitle, expectedValue){
+  this.filterTitlesRowArray.each(($ele, index) => {
+    if ($ele.text().includes(filterTitle)) {
+      cy.log("************"+filterTitle+" = Column "+((parseInt(index))-1) +"***************")
+      if(expectedValue != 'Checked' && expectedValue != "Unchecked") {
+      this.row1ResultFieldsArray.eq(((parseInt(index))))
+      .should('be.visible')
+      .should('contain',expectedValue);
+      }
+  else {
+    switch (expectedValue) {
+      case 'Checked':
+        this.row1ResultFieldsArray.eq(((parseInt(index))))
+        .should('be.visible')
+        .find('.fa-solid').should('exist');
+        break; 
+      case 'Unchecked':
+        this.row1ResultFieldsArray.eq(((parseInt(index))))
+        .should('be.visible')
+        .find('.fa-solid').should('not.exist');
+        break; 
+      default:
+      cy.get('body').then(() => {
+        throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + expectedValue +'.');
+      }) 
+  }
+  }
+}})
+}
 }
 export default new masterDatabasePage();
