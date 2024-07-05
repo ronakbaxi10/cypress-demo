@@ -1190,7 +1190,37 @@ So you can just look in the normal place on your c drive for the report.
 (10) If you actually want to see the files in the Docker Container, you need to open it in Docker Desktop
 
 ------------------------------------------------------------------------------------------------------------------ 
+# iFrames
 
+To get iFrames to work I installed the Cypress Iframe package:
+
+I added this to package.json
+
+    "cypress-iframe": "^1.0.1"
+
+Then within e2e.js I added this line:
+
+import 'cypress-iframe';
+
+
+After installing the above package, this is how I worked with iFrames:
+
+get helpIFrame() {
+		return cy.iframe('frame[name="FrameMain"]');
+	}          
+
+this.helpIFrame.within(() => {
+            //Any code you do here will be done WITHIN the iframe
+            this.helpTitle
+              .should('be.visible')
+              .should('have.text', 'Projects Overview');
+          })
+
+
+So wihin your element selectors section of your page you get the iFrame using the command cy.iframe.
+You can get the iFrame and use the keyword 'within' and all code written within that block will be done
+INSIDE the iframe.
+------------------------------------------------------------------------------------------------------------------
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*
