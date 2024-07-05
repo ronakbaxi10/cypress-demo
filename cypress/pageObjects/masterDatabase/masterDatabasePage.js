@@ -2,29 +2,19 @@ import BasePage from '../basePage';
 
 class masterDatabasePage extends BasePage {
   
-  //Filter Text Boxes
-  get tagNameFilterTextBox() {
-    return cy.get('#MainContent_callbackPanel_dataGridView_DXFREditorcol1_I');
-  }
-  get projectNameFilterTextBox() {
-    return cy.get('#MainContent_callbackPanel_dataGridView_DXFREditorcol4_I');
-  }
-
-  get tagStatusFilterTextBox() {
-    return cy.get('#MainContent_callbackPanel_dataGridView_DXFREditorcol5_I');
-  }
-
-  get templateNameFilterTextBox() {
-    return cy.get('#MainContent_callbackPanel_dataGridView_DXFREditorcol8_I');
-  }
-
-  get hasAlarmsFilterTextBox() {
-    return cy.get('#MainContent_callbackPanel_dataGridView_DXFREditorcol10_I');
-  }
+//Filter Text Boxes
+get filterTitlesRowArray() {
+  return cy.get('[id*="MainContent_callbackPanel_dataGridView_col"]');
+}  
+get filterInputFieldsArray() {
+  return cy.get('#MainContent_callbackPanel_dataGridView_DXFilterRow td[class="dxgv"]');
+}
+  
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Row 1 of Results Selectors = For checking values
+
 get tagNameRow1Result() {
   return cy.get('#MainContent_callbackPanel_dataGridView_DXDataRow0 td:nth-of-type(3)[class*="dxgv"]');
 }
@@ -47,42 +37,27 @@ enterFilterValue(filterName, filterValue){
   let valueToEnter=filterValue+'{enter}'
   switch (filterName.toLowerCase()) {
     case 'tag name':
-      this.tagNameFilterTextBox.should('be.visible');
-      this.tagNameFilterTextBox
-      .click()
-      .type(valueToEnter); 
+      this.getColumnNumberAndEnterFilterText('Tag Name',valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
     case 'project name':
-      this.projectNameFilterTextBox.should('be.visible');
-      this.projectNameFilterTextBox
-      .click()
-      .type(valueToEnter); 
+      this.getColumnNumberAndEnterFilterText('Project Name',valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
     case 'tag status':
-      this.tagStatusFilterTextBox.should('be.visible');
-      this.tagStatusFilterTextBox
-      .click()
-      .type(valueToEnter); 
+      this.getColumnNumberAndEnterFilterText('Tag Status',valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
     case 'template name':
-      this.templateNameFilterTextBox.should('be.visible');
-      this.templateNameFilterTextBox
-      .click()
-      .type(valueToEnter); 
+      this.getColumnNumberAndEnterFilterText('Template Name',valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
     case 'has alarms':
-      this.hasAlarmsFilterTextBox.should('be.visible');
-      this.hasAlarmsFilterTextBox
-      .click()
-      .type(valueToEnter); 
+      this.getColumnNumberAndEnterFilterText('Has Alarms',valueToEnter)
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -93,6 +68,18 @@ enterFilterValue(filterName, filterValue){
   }  
   //The filter selected checkbox should now be displayed:
   this.filterSelectedCheckBox.should('be.visible')
+}
+
+getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
+  this.filterTitlesRowArray.each(($ele, index) => {
+    if ($ele.text().includes(filterTitle)) {
+      cy.log("************"+filterTitle+" = Column "+((parseInt(index))-1) +"***************")
+    this.filterInputFieldsArray.eq(((parseInt(index))-1))
+        .should('be.visible')
+        .click()
+        .type(valueToEnter);
+    }
+  })
 }
 
 checkRow1ColumnFieldContainsValue(columnName, expectedValue){
