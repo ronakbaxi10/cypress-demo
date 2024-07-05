@@ -22,8 +22,10 @@ import 'cypress-mochawesome-reporter/register';
 
 //This must be here for xpath to work:
 require('cypress-xpath');
-//Thist must be here for cypress-real-events to work e.g. hover
+//This must be here for cypress-real-events to work e.g. hover
 import "cypress-real-events";
+//This must here to use the cypress=-iframe plugin
+import 'cypress-iframe';
 
 //This stops uncaught:exceptions in the website code from failing teh Cypress tests:
 Cypress.on('uncaught:exception', (err, runnable) => {

@@ -58,7 +58,7 @@ get systemTreeViewMenu() {
 } 
 
 get helpLeftHandMenuLink() {
-  return cy.get('.sidebar-menu > li:nth-child(11) span');
+  return cy.get('a[href*="../Help/"]');
 } 
 
 //Admin Sub Menu Links
