@@ -3,7 +3,7 @@ import ProjectViewPage from './projectViewPage';
 
 class projectsOverviewPage extends BasePage {
 
-  viewProject(projectName){
+  viewAndCheckProject(projectName){
     cy.xpath(`(//a[contains(text(),"${projectName}")])[1]`)
       .should('be.visible')
       .click();
