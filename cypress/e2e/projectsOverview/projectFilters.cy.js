@@ -31,7 +31,7 @@ describe('Check Project Filters work correctly', () => {
     ProjectViewPage.enterFilterValue('Revision','0.0');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Revision','0.0');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Under Review By','Matt');
+    ProjectViewPage.enterFilterValue('Under Review By','pvadmin');
     //ProjectViewPage.checkRow1ColumnFieldContainsValue('Under Review By','Matt');  //No date returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Signed','signed');

@@ -97,7 +97,19 @@ get system_SystemEventLogLink() {
   return cy.get('.menu-open > li:nth-child(3) span');
 } 
 
+///////////////////////////////////////////////////////////////////////
+//Shared Filters elements
+get filterSelectedCheckBox() {
+  return cy.get('.dxWeb_edtCheckBoxChecked_DevEx');
+}
 
+get selectedFiltersText() {
+  return cy.get('.dxgvFilterBarLink_DevEx');
+}
+
+get clearFiltersHyperlink() {
+  return cy.xpath('//a[contains(text(),"Clear")]');
+}
 ///////////////////////////////////////////////////////////////////////
 
 logOut(){
@@ -124,6 +136,32 @@ clickOnElement(element){
       .should('be.visible')
       .click();
     this.loadingSpinner.should('not.be.visible');
+}
+
+checkSelectedFiltersValue(expectedValueInFilter) {
+  //If the filter text is small is is just stored as the element's inner text. If it is long it creates
+//a new 'title' attribute so I have written code to cope with both scenarios:
+this.selectedFiltersText.then($element => {
+    var attr = $element.attr('title');
+  // For some browsers, `attr` is undefined; for others,
+  // `attr` is false.  Check for both.
+    if (typeof attr !== 'undefined' && attr !== false) {
+      //Get the Filter Value from the title attribute
+      this.selectedFiltersText.invoke('attr', 'title').should('include', expectedValueInFilter);
+    }
+    else {
+      //Get the Filter Value from the embedded text
+      this.selectedFiltersText.should('contain', expectedValueInFilter);
+    }        
+    })  
+}
+
+clearSelectedFilters(){
+  this.clearFiltersHyperlink
+  .should('be.visible')
+  .click()
+  this.selectedFiltersText
+  .should('not.exist');
 }
 
 clickAndCheckLeftHandMenuLink(linkToTest){
