@@ -22,8 +22,8 @@ describe('Check Project Filters work correctly', () => {
     ProjectViewPage.enterFilterValue('Tag Description','D1002');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description','D1002');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Has Alarm','Checked');
-    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Has Alarm','Checked'); //No date returned at the time of writing
+    ProjectViewPage.enterFilterValue('Has Alarm','Unchecked');
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Has Alarm','Unchecked'); //No date returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterFilterValue('Template','Digital');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Template','Digital');

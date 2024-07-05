@@ -53,8 +53,8 @@ get tagNameRow1Result() {
 get tagDescriptionRow1Result() {
   return cy.get('#MainContent_callbackPanel_projectViewGridView_DXDataRow0 td:nth-of-type(4)[class*="dxgv"]');
 }
-get hasAlarmRow1Result() {
-  return cy.get('#MainContent_callbackPanel_projectViewGridView_DXDataRow0 td:nth-of-type(5)[class*="dxgv"]');
+get  hasAlarmRow1ResultIsChecked() {
+  return cy.get('#MainContent_callbackPanel_projectViewGridView_DXDataRow0 td:nth-of-type(5)[class*="dxgv"] .fa-solid');
 }
 get templateRow1Result() {
   return cy.get('#MainContent_callbackPanel_projectViewGridView_DXDataRow0 td:nth-of-type(6)[class*="dxgv"]');
@@ -176,9 +176,12 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
         .should('contain',expectedValue);
       break; 
     case 'has alarm':
-      this.hasAlarmRow1Result
-        .should('be.visible')
-        .should('contain',expectedValue);
+      if (expectedValue.toLowerCase() == 'checked') {
+        this.hasAlarmRow1ResultIsChecked.should('be.visible');
+      }
+      else if (expectedValue.toLowerCase() == 'unchecked') {
+        this.hasAlarmRow1ResultIsChecked.should('not.exist');
+      }
     break; 
     case 'template':
       this.templateRow1Result
