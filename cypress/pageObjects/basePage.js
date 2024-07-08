@@ -120,16 +120,6 @@ get clearFiltersHyperlink() {
 ///////////////////////////////////////////////////////////////////////
 
 
-
-logOut(){
-    this.userProfileIcon
-      .should('be.visible')
-      .click();
-    this.logOutButton
-    .should('be.visible')
-    .click();
-}
-
 hoverOverElement(element){
   //Hovers are very temporamental so added a wait here to help
     cy.wait(2000);
