@@ -57,6 +57,7 @@ getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
 }
 
 checkRow1ColumnFieldContainsValue(filterTitle, expectedValue){
+  //Find the column number by searching for the passed in Title and check the value. Error if no matching column title found
   let matchingTitle = false;
   this.filterTitlesRowArray.each(($ele, index) => {
     if ($ele.text().includes(filterTitle)) {
