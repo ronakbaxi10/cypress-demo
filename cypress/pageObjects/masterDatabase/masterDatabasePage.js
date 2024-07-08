@@ -35,7 +35,9 @@ enterFilterValue(filterName, filterValue){
 }
 
 getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
-  //Find the column number by searching for the passed in Title and enter the value. Error if no matching column title found
+  //Find the column number by searching for the passed in Title. Error if no matching column title found
+  //Once we know the column number we use that to select the correct filterInput field and then enter the value
+  
   let matchingTitle = false;
   this.filterTitlesRowArray.each(($ele, index) => {
       if ($ele.text().includes(filterTitle)) {

@@ -1228,8 +1228,47 @@ If you want to throw an error at any point in your code and fail the test, use t
 cy.get('body').then(() => {
   throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + columnName +'.');
 
-------------------------------------------------------------------------------------------------------------------        
+------------------------------------------------------------------------------------------------------------------  
 
+# How I looped through title columns to find a matching title
+
+I created an element selector that matching ALL of the column titles (rather than a unique selector!)
+Cypress saves these as an array
+
+The code then loops through the array searching for the passed in title
+
+getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
+  //Find the column number by searching for the passed in Title and enter the value. Error if no matching column title found
+  let matchingTitle = false;
+  this.filterTitlesRowArray.each(($ele, index) => {
+      if ($ele.text().includes(filterTitle)) {
+        cy.log("************"+filterTitle+" = Column "+((parseInt(index))-1) +"***************")
+        this.filterInputFieldsArray.eq(((parseInt(index))-1))
+          .should('be.visible')
+          .click()
+          .type(valueToEnter)
+          .then(() => {matchingTitle = true;})
+      }
+    })
+    .then(() => {
+      if (matchingTitle == false) {
+        cy.get('body').then(() => {
+          throw new Error('ERROR! There are no column titles that match the passed in value of: ' + filterTitle +'.');
+        }) 
+      }
+    })
+}
+
+------------------------------------------------------------------------------------------------------------------
+# How to find an element within an element
+
+You can use the keyword find plus the element selector, to find an element within an element as shown below:
+
+this.row1ResultFields
+            .should('be.visible')
+            .find('.fa-solid').should('exist'); 
+            
+------------------------------------------------------------------------------------------------------------------ 
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*
