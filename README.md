@@ -1267,8 +1267,23 @@ You can use the keyword find plus the element selector, to find an element withi
 this.row1ResultFields
             .should('be.visible')
             .find('.fa-solid').should('exist'); 
-            
+
 ------------------------------------------------------------------------------------------------------------------ 
+# xpath to find sibling elements
+
+To find sibling elements in xpath you can use the keywords:
+
+- preceding-sibling
+- following-sibling
+
+For example: I had 2 td sibling elements. I searched for the first one by its text of 'Point Type Text' I then used preceding-sibling
+to get the checkbox which was to the left of it as shown here:
+
+//td[text()="Point Type Text"]/preceding-sibling::td[1]
+
+The value one means I was the FIRST preceding sibling from my started point.
+------------------------------------------------------------------------------------------------------------------ 
+
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*

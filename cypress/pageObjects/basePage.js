@@ -21,7 +21,14 @@ class BasePage extends SharedFunctions {
   get coverWhilePageFullyLoads() {
     return cy.get('#cover');
   }
+
+  get noDataMessage() {
+    return cy.xpath('//div[contains(text(),"No data to display")]');
+  }
   
+  get updatingGridPopUp() {
+    return cy.get('#MainContent_callbackPanel_TL');
+  }
   
 //Left Hand menu links
 
@@ -112,6 +119,8 @@ get clearFiltersHyperlink() {
 }
 ///////////////////////////////////////////////////////////////////////
 
+
+
 logOut(){
     this.userProfileIcon
       .should('be.visible')
@@ -135,7 +144,6 @@ clickOnElement(element){
     element
       .should('be.visible')
       .click();
-    this.loadingSpinner.should('not.be.visible');
 }
 
 checkSelectedFiltersValue(expectedValueInFilter) {
@@ -205,7 +213,10 @@ clickAndCheckLeftHandMenuLink(linkToTest){
           cy.get('body').then(() => {
             throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + linkToTest +'.');
           }) 
-      }    
+      }
+      this.coverWhilePageFullyLoads.should('not.be.visible');
+      this.noDataMessage.should('not.be.visible');
+      this.updatingGridPopUp.should('not.be.visible');    
     }
 
   clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){

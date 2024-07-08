@@ -7,7 +7,7 @@ let password = Cypress.env('password')
 
 describe('Check Master Database Filters work correctly', () => {
 
-  it('Check aster Database Filters work correctly', () => {
+  it('Check Master Database Filters work correctly', () => {
     cy.visit('/guardian/Default.aspx');  
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
