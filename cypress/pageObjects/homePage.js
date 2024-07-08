@@ -11,7 +11,7 @@ class homePage extends BasePage {
         .should('be.visible')
         .click();
         LoginPage.usernameTextBox
-        .should('be.visible')
+        .should('be.visible');
     }
 }
 
