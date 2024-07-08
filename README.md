@@ -1221,6 +1221,15 @@ So wihin your element selectors section of your page you get the iFrame using th
 You can get the iFrame and use the keyword 'within' and all code written within that block will be done
 INSIDE the iframe.
 ------------------------------------------------------------------------------------------------------------------
+# How to throw an error and fail the test
+
+If you want to throw an error at any point in your code and fail the test, use this:
+
+cy.get('body').then(() => {
+  throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + columnName +'.');
+
+------------------------------------------------------------------------------------------------------------------        
+
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*
