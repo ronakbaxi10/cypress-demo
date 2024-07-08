@@ -10,8 +10,10 @@ class homePage extends BasePage {
         this.logOutButton
         .should('be.visible')
         .click();
+        //Make sure it is fully logged out!
         LoginPage.usernameTextBox
-        .should('be.visible');
+        .should('be.visible')
+        .click();
     }
 }
 
