@@ -17,12 +17,11 @@ describe('Edit Project Tags', () => {
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
-    //Save original Tag Description as an Alias to use later
+    //Save original Tag Description and Revision as Aliases to use later
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.tagDescriptionRow1Result,'originalTagDescription');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
-    //Save original Tag Revision as an Alias to use later
-    ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.tagRevisionNumberLabel,'originalTagRevision');    
     ViewEditTagDetailsPage.editTagValueAndSign('Description',newDescription);
     ViewEditTagDetailsPage.checkTagStatus('Ready For Approval');
     //Save NEW Tag Revision so we can compare to the original
