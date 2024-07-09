@@ -190,9 +190,9 @@ clickAndCheckLeftHandMenuLink(linkToTest){
           .click();
           cy.url().should('include', 'MasterDataViewer');
           this.topPageTitle.should('contain','Master Database');
-          this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
-          this.noDataMessage.should(enterAndCheckFilterValue);
-          this.updatingGridPopUp.should(enterAndCheckFilterValue); 
+          this.coverWhilePageFullyLoads.should('not.be.visible');
+          this.noDataMessage.should('not.be.visible');
+          this.updatingGridPopUp.should('not.be.visible'); 
           break;  
         case 'dashboards':
           this.dashboardsLeftHandMenuLink
@@ -224,7 +224,7 @@ clickAndCheckLeftHandMenuLink(linkToTest){
 
   clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
     //Open the Admin Drop Down menu if it is not already open
-    this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
+    this.coverWhilePageFullyLoads.should('not.be.visible');
     this.adminLeftHandMenuLink.then($element => {
       var attr = $element.attr('class');
       if (attr == 'treeview') {
@@ -289,7 +289,7 @@ clickAndCheckLeftHandMenuLink(linkToTest){
 
   clickAndCheckLeftHandMenuLink_SystemSubMenu(linkToTest){
       //Open the Admin Drop Down menu if it is not already open
-      this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
+      this.coverWhilePageFullyLoads.should('not.be.visible');
       this.systemLeftHandMenuLink.then($element => {
         var attr = $element.attr('class');
         if (attr == 'treeview') {

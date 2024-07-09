@@ -314,7 +314,7 @@ cy.get(selector).should('not.exist')
 
 cy.get(selector).should('be.visible')
 
-cy.get(selector).should(enterAndCheckFilterValue)
+cy.get(selector).should('not.be.visible')
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -326,7 +326,7 @@ If the popup DEFINITELY appears you can use this:
     this.acceptCookiesPopUp
       .should('be.visible')
       .click()
-      .should(enterAndCheckFilterValue);
+      .should('not.be.visible');
   }
 
 If it MIGHT be there but it might not, you can use this:
@@ -337,7 +337,7 @@ If it MIGHT be there but it might not, you can use this:
               cy.task("log","***************The cookie popup IS visible***************************");
               this.acceptCookiesPopUp 
                 .click()
-                .should(enterAndCheckFilterValue);
+                .should('not.be.visible');
             }
             else {
                 cy.task("log","***************The cookie popup IS NOT visible***************************");
@@ -472,7 +472,7 @@ LogInPage.usernameTextBox.should('not.exist')
 
 *Check if elements are visible or not*
 LogInPage.usernameTextBox.should('be.visible')
-LogInPage.usernameTextBox.should(enterAndCheckFilterValue)
+LogInPage.usernameTextBox.should('not.be.visible')
 
 
 *Check if checkbox elements are CHECKED or not*
@@ -1306,7 +1306,28 @@ to get the checkbox which was to the left of it as shown here:
 
 The value one means I was the FIRST preceding sibling from my started point.
 ------------------------------------------------------------------------------------------------------------------ 
+# Only use cy.wait() as a last resort - try throttling the network to see what is causing you to need to wait
 
+Sometimes there is strange behaviour and it seems that the only way to fix it is adding a cy.wait() for a couple of seconds.
+
+cy.waits are frowned upon and are not good practice. You should try to wait for actual things to happen.
+
+Sometimes throttling the network can show you what is causing the problem.
+
+Go into chrome developer tools and click on the network tab.
+
+Click on the down arrow which shows the available throttle settings. I've made a few custom ones e.g. 1kb download, 20, 50, 100 etc.
+
+Select one of these so that the network is slowed down.
+
+Then perform the action that is causing you a problem.
+
+You may then see that there is a loading spinner or something similar that you don't see in normal time.
+You could then get the element selector for that element and add some code to wait for that NOT to be visible.
+
+Add this to the test and hopefully it might fix your problem and you can do away with the cy.wait()
+
+------------------------------------------------------------------------------------------------------------------ 
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*

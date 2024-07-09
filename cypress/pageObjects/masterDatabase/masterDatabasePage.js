@@ -58,9 +58,9 @@ customiseViewAddColumn(columnToAdd){
   })
   this.clickOnElement(this.applyButton);
   this.topPageTitle.should('contain','Master Database');
-  this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
-  this.noDataMessage.should(enterAndCheckFilterValue);
-  this.updatingGridPopUp.should(enterAndCheckFilterValue);    
+  this.coverWhilePageFullyLoads.should('not.be.visible');
+  this.noDataMessage.should('not.be.visible');
+  this.updatingGridPopUp.should('not.be.visible');    
 }
 
 customiseViewRemoveColumn(columnToAdd){
@@ -79,21 +79,21 @@ customiseViewRemoveColumn(columnToAdd){
   })
   this.clickOnElement(this.applyButton);
   this.topPageTitle.should('contain','Master Database');
-  this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
-  this.noDataMessage.should(enterAndCheckFilterValue);
-  this.updatingGridPopUp.should(enterAndCheckFilterValue);
+  this.coverWhilePageFullyLoads.should('not.be.visible');
+  this.noDataMessage.should('not.be.visible');
+  this.updatingGridPopUp.should('not.be.visible');
 }
 
 checkColumnTitleIsDisplayed(columnTitleToCheck){
-  this.updatingGridPopUp.should(enterAndCheckFilterValue);
+  this.updatingGridPopUp.should('not.be.visible');
   cy.xpath(`//td[text()="${columnTitleToCheck}"]`)
     .should('be.visible');
 }
 
 checkColumnTitleIsNotDisplayed(columnTitleToCheck){
-  this.updatingGridPopUp.should(enterAndCheckFilterValue);
+  this.updatingGridPopUp.should('not.be.visible');
   cy.xpath(`//td[text()="${columnTitleToCheck}"]`)
-    .should(enterAndCheckFilterValue);
+    .should('not.be.visible');
 }
 
 enterAndCheckFilterValue(filterName, filterValue){
