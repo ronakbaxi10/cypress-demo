@@ -38,14 +38,14 @@ class viewEditTagDetailsPage extends BasePage {
     return cy.get('#MainContent_backButton');
   }   
 
-  editTagValueAndSign(itemToChange, newvalue) {
+  editTagValueAndSign(itemToChange, newValue) {
     switch (itemToChange) {
       case 'Description':
         this.descriptionTextBox
         .should('be.visible')
         .click()
         .clear()
-        .type(newvalue); 
+        .type(newValue); 
         break;  
       default:
         cy.get('body').then(() => {

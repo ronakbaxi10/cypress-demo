@@ -22,6 +22,7 @@ describe('Edit Project Tags', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
+    ViewEditTagDetailsPage.checkTagStatus('In Draft');
     ViewEditTagDetailsPage.editTagValueAndSign('Description',newDescription);
     ViewEditTagDetailsPage.checkTagStatus('Ready For Approval');
     //Save NEW Tag Revision so we can compare to the original
