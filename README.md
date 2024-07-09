@@ -1051,39 +1051,26 @@ Just change the name of the element you want to read the inner text from (eventD
     });
 
 ---------------------------------------------------------------------------------------------------------------------
-# How to extract inner text and save as an alias to be used in other commands
-
-Here I extract the inner text and store it as an alias called innerTextAlias.
-The inner text can then be used in other commands by getting the alias as shown here:
-
-SoeHistoricalPage.eventDateTimeRow1Result.invoke('text').wrap(text).as('innerTextAlias');
-    cy.get('@innerTextAlias').then((innerText) => {
-      cy.task("log","******************************Inner Text= "+innerText+" ***************************"); 
-    })
-------------------------------------------------------------------------------------------------------------------
-
-# Using aliases to store values in Cypress
+# Using Aliases to store values in Cypress
 
 In Cypress when you want to store a value to be used later in the test, you need to save it as an ALIAS.
 
-In this example we get the text of a field and save it to an 'ALIAS' called timeStampOfOriginalSelectedEventAlias:
+Here I extract the inner text and store it as an alias called yourAliasName.
 
-    SoeHistoricalPage.eventDateTimeRow1Result.then($element => {
-      let textValueOfElement = $element.text()
-      cy.wrap(textValueOfElement).as('timeStampOfOriginalSelectedEventAlias') 
+    this.tagRevisionNumberLabel.then((el) => {
+      return el.text();
+    }).as('yourAliasName');
+
+
+The inner text can then be used in other commands by getting the alias as shown here:
+
+    cy.get(`@${aliasName}`).then((tagRevision) => {
+      cy.task("log","****************I have saved an alias called: "+yourAliasName+", that has the value: "+tagRevision+". ***************************");        
     });
 
+Note 'tagRevision' can be anything - it just means whatever is stored in your alias so make it something meaningful
+------------------------------------------------------------------------------------------------------------------
 
-So we have now saved the text to an alias. To use that value later in the test, we do a cy.get to get the alias and then we can use the value stored within the alias using the syntax below.
-Note that the word 'timeStampOfOriginalSelectedEvent' used here can be ANYTHING - it just means that value that is stored within the alias, you can call it anything.
-
-    cy.get('@timeStampOfOriginalSelectedEventAlias').then((timeStampOfOriginalSelectedEvent) => {
-           cy.task("log","******************************"timeStampOfOriginalSelectedEvent+"***************************");        
-     });
-    })  
-
-------------------------------------------------------------------------------------------------------------------      
- 
 # How to compare dates
 
 To compare dates in Cypress you can use ".to.be.lessThan" ("to.be.lt" (which is short for lessThan).

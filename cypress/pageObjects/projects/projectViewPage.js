@@ -5,6 +5,10 @@ class projectViewPage extends BasePage {
   get projectNameLabel() {
     return cy.get('#MainContent_projectNameLabel');
   }
+
+  get viewTagDetailsButton() {
+    return cy.get('[title="View Details"]');
+  }
   
   //Filter Text Boxes
   get updatedDateFilterTextBox() {
@@ -215,5 +219,12 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
   }  
 }
 
+clickViewTagDetailsButton(){
+  this.clickOnElement(this.viewTagDetailsButton);
+  this.topPageTitle
+    .should('be.visible')
+    .should('contain','Revision View/Edit');
 }
+}
+
 export default new projectViewPage();
