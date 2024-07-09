@@ -31,14 +31,14 @@ class viewEditTagDetailsPage extends BasePage {
   }
   
   get tagDescriptionLabel() {
-    return cy.get('#MainContent_UC1_1517');
+    return cy.xpath('//label[text()="Description"]/../following-sibling::label[1]');
   } 
   
   get backButton() {
     return cy.get('#MainContent_backButton');
   }   
 
-  editTagValue(itemToChange, newvalue) {
+  editTagValueAndSign(itemToChange, newvalue) {
     switch (itemToChange) {
       case 'Description':
         this.descriptionTextBox
@@ -61,15 +61,6 @@ class viewEditTagDetailsPage extends BasePage {
     this.tagStatusLabel
       .should('be.visible')
       .should('contain',expectedStatus);
-  }
-
-  saveCurrentTagRevisionNumberAsAlias(aliasName){
-    this.tagRevisionNumberLabel.then((el) => {
-      return el.text();
-    }).as(aliasName);
-    cy.get(`@${aliasName}`).then((tagRevision) => {
-      cy.task("log","****************I have saved an alias called: "+aliasName+", that has the value: "+tagRevision+". ***************************");        
-    });
   }
 
   assertTagRevisionHasIncreased(originalTagRevisionAlias, newTagRevisionAlias){

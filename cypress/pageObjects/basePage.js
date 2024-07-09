@@ -4,7 +4,10 @@ import SharedFunctions from './sharedFunctions';
 //Shared functions go in sharedFunctions.js (which is linked to basePage.js)
 
 class BasePage extends SharedFunctions {
-
+  
+  get loadingSpinner() {
+		return cy.xpath('//span[text()="Loading…"]');
+	} 
   
   get userProfileIcon() {
 		return cy.get('#userProfileImageUserMenu');
@@ -119,6 +122,14 @@ get clearFiltersHyperlink() {
 }
 ///////////////////////////////////////////////////////////////////////
 
+saveElementTextAsAlias(element, aliasName){
+  element.then((el) => {
+    return el.text();
+  }).as(aliasName);
+  cy.get(`@${aliasName}`).then((text) => {
+    cy.task("log","****************I have saved an alias called: "+aliasName+", that has the value: "+text+". ***************************");        
+  });
+}
 
 hoverOverElement(element){
   //Hovers are very temporamental so added a wait here to help
@@ -160,6 +171,8 @@ clearSelectedFilters(){
   .click()
   this.selectedFiltersText
   .should('not.exist');
+  this.loadingSpinner
+  .should('not.be.visible');
 }
 
 clickAndCheckLeftHandMenuLink(linkToTest){

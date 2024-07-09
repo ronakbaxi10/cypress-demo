@@ -36,8 +36,12 @@ describe('Check Project Filters work correctly', () => {
     ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterAndCheckFilterValue('Signed','0');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','0');
-    ProjectViewPage.enterAndCheckFilterValue('Status','Approved');
-    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved'); //No data returned at the time of writing
+    ProjectViewPage.clearSelectedFilters();
+    ProjectViewPage.enterAndCheckFilterValue('Signed','1');
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1');
+    ProjectViewPage.clearSelectedFilters();
+    ProjectViewPage.enterAndCheckFilterValue('Status','ReadyForApproval');
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','ReadyForApproval');
     ProjectViewPage.clearSelectedFilters();
     HomePage.logOut();
 });

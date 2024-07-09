@@ -1064,11 +1064,35 @@ Here I extract the inner text and store it as an alias called yourAliasName.
 
 The inner text can then be used in other commands by getting the alias as shown here:
 
-    cy.get(`@${aliasName}`).then((tagRevision) => {
+    cy.get('@yourAliasName').then((tagRevision) => {
       cy.task("log","****************I have saved an alias called: "+yourAliasName+", that has the value: "+tagRevision+". ***************************");        
     });
 
 Note 'tagRevision' can be anything - it just means whatever is stored in your alias so make it something meaningful
+
+
+NOTE I have now created the following function on the basePage to get text from an element and store it as an alias:
+
+saveElementTextAsAlias(element, aliasName){
+  element.then((el) => {
+    return el.text();
+  }).as(aliasName);
+  cy.get(`@${aliasName}`).then((text) => {
+    cy.task("log","****************I have saved an alias called: "+aliasName+", that has the value: "+text+". ***************************");        
+  });
+}
+
+You can use it like this:
+
+ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.tagRevisionNumberLabel,'newTagRevision');  
+
+You need to pass in the element you want to extract the text from and the name you want the alias to be called
+
+You can call it and use it your test as follows:
+
+cy.get('@originalTagDescription').then((description) => {
+  ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description',description)       
+});
 ------------------------------------------------------------------------------------------------------------------
 # How to compare aliases
 

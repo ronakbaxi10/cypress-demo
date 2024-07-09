@@ -9,6 +9,12 @@ class projectViewPage extends BasePage {
   get viewTagDetailsButton() {
     return cy.get('[title="View Details"]');
   }
+
+  get viewTagDetailsButton() {
+    return cy.get('[title="View Details"]');
+  }
+
+  MainContent_callbackPanel_projectViewGridView_TL
   
   //Filter Text Boxes
   get updatedDateFilterTextBox() {
@@ -87,6 +93,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue("[Updated Date] Is greater than or equal to")
       break; 
@@ -96,6 +103,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -105,6 +113,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -114,6 +123,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -123,6 +133,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -132,6 +143,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -141,6 +153,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -150,6 +163,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -159,6 +173,7 @@ enterAndCheckFilterValue(filterName, filterValue){
       .click()
       .clear()
       .type(valueToEnter); 
+      this.loadingSpinner.should('not.be.visible');
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
       break; 
@@ -213,20 +228,41 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
     break;
     case 'signed':
       this.signedRow1Result.should('be.visible');
-      if (expectedValue == '0') {
-        this.signedRow1Result
-          .find('[title="Signed"]').should('not.exist'); 
-      }
-      else if (expectedValue == '1') {
-        this.signedRow1Result
-        .should('be.visible')
-          .find('[title="Signed"]').should('exist'); 
-      }
-    break;
+      switch(expectedValue){
+        case '0':
+          this.signedRow1Result
+            .find('[title="Signed"]').should('not.exist'); 
+          break; 
+        case '1':
+          this.signedRow1Result
+            .find('[title="Signed"]').should('exist'); 
+          break; 
+        default:
+          cy.get('body').then(() => {
+            throw new Error('ERROR! No items in the SIGNED switch statement match the passed in expected value of: ' + expectedValue +'.');
+        })
+      } 
+    break; 
     case 'status':
-      this.statusRow1Result
-        .should('be.visible')
-        .should('contain',expectedValue);
+      switch(expectedValue){
+        case 'Approved':
+          this.statusRow1Result
+            .find('[title="Approved by all approvers"]').should('exist'); 
+          break; 
+        case 'Initialised':
+          this.statusRow1Result
+            .find('[title="Signed by all reviewers and waiting for approval"]').should('not.exist')
+            .find('[title="Approved by all approvers"]').should('not.exist'); 
+          break; 
+        case 'ReadyForApproval':
+          this.statusRow1Result
+            .find('[title="Signed by all reviewers and waiting for approval"]').should('exist'); 
+          break; 
+        default:
+          cy.get('body').then(() => {
+            throw new Error('ERROR! No items in the STATUS switch statement match the passed in expected value of: ' + expectedValue +'.');
+        })
+      }
     break;
     default:
       cy.get('body').then(() => {
