@@ -176,7 +176,10 @@ clickAndCheckLeftHandMenuLink(linkToTest){
           .should('be.visible')
           .click();
           cy.url().should('include', 'MasterDataViewer');
-          this.topPageTitle.should('contain','Master Database')  
+          this.topPageTitle.should('contain','Master Database');
+          this.coverWhilePageFullyLoads.should('not.be.visible');
+          this.noDataMessage.should('not.be.visible');
+          this.updatingGridPopUp.should('not.be.visible'); 
           break;  
         case 'dashboards':
           this.dashboardsLeftHandMenuLink
@@ -203,10 +206,7 @@ clickAndCheckLeftHandMenuLink(linkToTest){
           cy.get('body').then(() => {
             throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + linkToTest +'.');
           }) 
-      }
-      this.coverWhilePageFullyLoads.should('not.be.visible');
-      this.noDataMessage.should('not.be.visible');
-      this.updatingGridPopUp.should('not.be.visible');    
+      }   
     }
 
   clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
