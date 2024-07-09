@@ -32,9 +32,13 @@ describe('Edit Project Tags', () => {
     //Return to the Project View Page.
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.backButton);
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
-    //Check the edited tag is shown as Signed and has a Ready for Approval Status
+    //Check the revision has updated and the edited tag is shown as Signed and has a Ready for Approval Status
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','ReadyForApproval')
+    //Get the new Tag Revision from the alias we saved earlier and check it is shown correctly on the Project View page
+    cy.get('@newTagRevision').then((tagRevision) => {
+      ProjectViewPage.checkRow1ColumnFieldContainsValue('Revision',tagRevision)       
+    });
     //Get the original description from the alias we saved earlier and check it has NOT yet changed as it has NOT been approved yet
     cy.get('@originalTagDescription').then((description) => {
       ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description',description)       
