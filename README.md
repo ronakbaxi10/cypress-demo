@@ -1070,7 +1070,19 @@ The inner text can then be used in other commands by getting the alias as shown 
 
 Note 'tagRevision' can be anything - it just means whatever is stored in your alias so make it something meaningful
 ------------------------------------------------------------------------------------------------------------------
+# How to compare aliases
 
+I had alreay created 2 aliaes - originalTagVersion and newTagVersion.
+
+To compare them I had to get one, next use the 'then' keyword and get the other one. I could then compare them as shown here:
+
+    cy.get(`@${originalTagRevisionAlias}`).then((originalTagVersion) => {
+      cy.get(`@${newTagRevisionAlias}`).then((newTagVersion) => {
+        expect(parseFloat(newTagVersion.replace('0.',''))).to.eq(parseFloat(originalTagVersion.replace('0.','')) + 1);
+      });
+    });
+
+------------------------------------------------------------------------------------------------------------------    
 # How to compare dates
 
 To compare dates in Cypress you can use ".to.be.lessThan" ("to.be.lt" (which is short for lessThan).
