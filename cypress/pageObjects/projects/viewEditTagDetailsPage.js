@@ -28,7 +28,15 @@ class viewEditTagDetailsPage extends BasePage {
   
   get tagRevisionNumberLabel() {
     return cy.get('#MainContent_revisionDetailsCallbackPanel_revisionNumberLabel');
-  }      
+  }
+  
+  get tagDescriptionLabel() {
+    return cy.get('#MainContent_UC1_1517');
+  } 
+  
+  get backButton() {
+    return cy.get('#MainContent_backButton');
+  }   
 
   editTagValue(itemToChange, newvalue) {
     switch (itemToChange) {
@@ -71,7 +79,20 @@ class viewEditTagDetailsPage extends BasePage {
         expect(parseFloat(newTagVersion.replace('0.',''))).to.eq(parseFloat(originalTagVersion.replace('0.','')) + 1);
       });
     });
-    
   }
+
+  assertValue(fieldToCheck, expectedDescription){
+    switch (fieldToCheck) {
+      case 'Description':
+        this.tagDescriptionLabel
+          .should('be.visible')
+          .should('have.text',expectedDescription);
+        break;  
+      default:
+        cy.get('body').then(() => {
+          throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + fieldToCheck +'.');
+      }) 
+    }  
+  }  
 }
 export default new viewEditTagDetailsPage();

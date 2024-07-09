@@ -314,7 +314,7 @@ cy.get(selector).should('not.exist')
 
 cy.get(selector).should('be.visible')
 
-cy.get(selector).should('not.be.visible')
+cy.get(selector).should(enterAndCheckFilterValue)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -326,7 +326,7 @@ If the popup DEFINITELY appears you can use this:
     this.acceptCookiesPopUp
       .should('be.visible')
       .click()
-      .should('not.be.visible');
+      .should(enterAndCheckFilterValue);
   }
 
 If it MIGHT be there but it might not, you can use this:
@@ -337,7 +337,7 @@ If it MIGHT be there but it might not, you can use this:
               cy.task("log","***************The cookie popup IS visible***************************");
               this.acceptCookiesPopUp 
                 .click()
-                .should('not.be.visible');
+                .should(enterAndCheckFilterValue);
             }
             else {
                 cy.task("log","***************The cookie popup IS NOT visible***************************");
@@ -472,7 +472,7 @@ LogInPage.usernameTextBox.should('not.exist')
 
 *Check if elements are visible or not*
 LogInPage.usernameTextBox.should('be.visible')
-LogInPage.usernameTextBox.should('not.be.visible')
+LogInPage.usernameTextBox.should(enterAndCheckFilterValue)
 
 
 *Check if checkbox elements are CHECKED or not*

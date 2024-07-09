@@ -13,31 +13,30 @@ describe('Check Project Filters work correctly', () => {
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
-    ProjectViewPage.enterFilterValue('Updated Date','02/07/2024 00:00');
+    ProjectViewPage.enterAndCheckFilterValue('Updated Date','02/07/2024 00:00');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Updated Date','02/07/2024');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Tag Name','A1001');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Name','A1001');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Tag Description','D1002');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Description','D1002');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description','D1002');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Has Alarm','Unchecked');
+    ProjectViewPage.enterAndCheckFilterValue('Has Alarm','Unchecked');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Has Alarm','Unchecked');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Template','Digital');
+    ProjectViewPage.enterAndCheckFilterValue('Template','Digital');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Template','Digital');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Revision','0.0');
+    ProjectViewPage.enterAndCheckFilterValue('Revision','0.0');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Revision','0.0');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Under Review By','pvadmin');
+    ProjectViewPage.enterAndCheckFilterValue('Under Review By','pvadmin');
     //ProjectViewPage.checkRow1ColumnFieldContainsValue('Under Review By','Matt');  //No data returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Signed','signed');
-    //ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','signed');  //No data returned at the time of writing
-    ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterFilterValue('Status','Approved');
+    ProjectViewPage.enterAndCheckFilterValue('Signed','0');
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','0');
+    ProjectViewPage.enterAndCheckFilterValue('Status','Approved');
     //ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved'); //No data returned at the time of writing
     ProjectViewPage.clearSelectedFilters();
     HomePage.logOut();

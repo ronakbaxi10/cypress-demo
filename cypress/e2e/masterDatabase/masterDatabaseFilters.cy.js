@@ -11,19 +11,19 @@ describe('Check Master Database Filters work correctly', () => {
     cy.visit('/guardian/Default.aspx');  
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
-    MasterDatabasePage.enterFilterValue('Tag Name','D10099');
+    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','D10099');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Tag Name','D10099');
     MasterDatabasePage.clearSelectedFilters();
-    MasterDatabasePage.enterFilterValue('Project Name','Test Project');
+    MasterDatabasePage.enterAndCheckFilterValue('Project Name','Test Project');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Project Name','Test Project');
     MasterDatabasePage.clearSelectedFilters();
-    MasterDatabasePage.enterFilterValue('Tag Status','Deployed');
+    MasterDatabasePage.enterAndCheckFilterValue('Tag Status','Deployed');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Tag Status','Deployed');
     MasterDatabasePage.clearSelectedFilters();
-    MasterDatabasePage.enterFilterValue('Template Name','Digital');
+    MasterDatabasePage.enterAndCheckFilterValue('Template Name','Digital');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Template Name','Digital'); 
     MasterDatabasePage.clearSelectedFilters();
-    MasterDatabasePage.enterFilterValue('Has Alarms','Checked');
+    MasterDatabasePage.enterAndCheckFilterValue('Has Alarms','Checked');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Has Alarms','Checked');
     MasterDatabasePage.clearSelectedFilters();
     HomePage.logOut();

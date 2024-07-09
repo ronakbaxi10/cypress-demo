@@ -58,9 +58,9 @@ customiseViewAddColumn(columnToAdd){
   })
   this.clickOnElement(this.applyButton);
   this.topPageTitle.should('contain','Master Database');
-  this.coverWhilePageFullyLoads.should('not.be.visible');
-  this.noDataMessage.should('not.be.visible');
-  this.updatingGridPopUp.should('not.be.visible');    
+  this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
+  this.noDataMessage.should(enterAndCheckFilterValue);
+  this.updatingGridPopUp.should(enterAndCheckFilterValue);    
 }
 
 customiseViewRemoveColumn(columnToAdd){
@@ -79,24 +79,24 @@ customiseViewRemoveColumn(columnToAdd){
   })
   this.clickOnElement(this.applyButton);
   this.topPageTitle.should('contain','Master Database');
-  this.coverWhilePageFullyLoads.should('not.be.visible');
-  this.noDataMessage.should('not.be.visible');
-  this.updatingGridPopUp.should('not.be.visible');
+  this.coverWhilePageFullyLoads.should(enterAndCheckFilterValue);
+  this.noDataMessage.should(enterAndCheckFilterValue);
+  this.updatingGridPopUp.should(enterAndCheckFilterValue);
 }
 
 checkColumnTitleIsDisplayed(columnTitleToCheck){
-  this.updatingGridPopUp.should('not.be.visible');
+  this.updatingGridPopUp.should(enterAndCheckFilterValue);
   cy.xpath(`//td[text()="${columnTitleToCheck}"]`)
     .should('be.visible');
 }
 
 checkColumnTitleIsNotDisplayed(columnTitleToCheck){
-  this.updatingGridPopUp.should('not.be.visible');
+  this.updatingGridPopUp.should(enterAndCheckFilterValue);
   cy.xpath(`//td[text()="${columnTitleToCheck}"]`)
-    .should('not.be.visible');
+    .should(enterAndCheckFilterValue);
 }
 
-enterFilterValue(filterName, filterValue){
+enterAndCheckFilterValue(filterName, filterValue){
   let valueToEnter=filterValue+'{enter}'
     this.getColumnNumberAndEnterFilterText(filterName,valueToEnter);
     //Check the correct filter is shown at the bottom

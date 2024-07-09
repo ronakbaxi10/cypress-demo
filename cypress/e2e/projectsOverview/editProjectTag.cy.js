@@ -16,7 +16,7 @@ describe('Edit Project Tags', () => {
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
-    ProjectViewPage.enterFilterValue('Tag Name','A1001');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     ProjectViewPage.clickViewTagDetailsButton();
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
     ViewEditTagDetailsPage.saveCurrentTagRevisionNumberAsAlias('originalTagRevision');    
@@ -24,7 +24,11 @@ describe('Edit Project Tags', () => {
     ViewEditTagDetailsPage.editTagValue('Description',newDescription);
     ViewEditTagDetailsPage.checkTagStatus('Ready For Approval');
     ViewEditTagDetailsPage.saveCurrentTagRevisionNumberAsAlias('newTagRevision');
-    ViewEditTagDetailsPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision')
+    ViewEditTagDetailsPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
+    ViewEditTagDetailsPage.assertValue('Description', newDescription);
+    ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.backButton);
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
     HomePage.logOut();
 });
 })

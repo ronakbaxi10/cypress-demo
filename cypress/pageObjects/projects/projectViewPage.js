@@ -78,13 +78,14 @@ get statusRow1Result() {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-enterFilterValue(filterName, filterValue){
+enterAndCheckFilterValue(filterName, filterValue){
   let valueToEnter=filterValue+'{enter}'
   switch (filterName.toLowerCase()) {
     case 'updated date':
       this.updatedDateFilterTextBox.should('be.visible');
       this.updatedDateFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue("[Updated Date] Is greater than or equal to")
@@ -93,6 +94,7 @@ enterFilterValue(filterName, filterValue){
       this.tagNameFilterTextBox.should('be.visible');
       this.tagNameFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -101,6 +103,7 @@ enterFilterValue(filterName, filterValue){
       this.tagDescriptionFilterTextBox.should('be.visible');
       this.tagDescriptionFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -109,6 +112,7 @@ enterFilterValue(filterName, filterValue){
       this.hasAlarmFilterTextBox.should('be.visible');
       this.hasAlarmFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -117,6 +121,7 @@ enterFilterValue(filterName, filterValue){
       this.templateFilterTextBox.should('be.visible');
       this.templateFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -125,6 +130,7 @@ enterFilterValue(filterName, filterValue){
       this.revisionFilterTextBox.should('be.visible');
       this.revisionFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -133,6 +139,7 @@ enterFilterValue(filterName, filterValue){
       this.underReviewByFilterTextBox.should('be.visible');
       this.underReviewByFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -141,6 +148,7 @@ enterFilterValue(filterName, filterValue){
       this.signedFilterTextBox.should('be.visible');
       this.signedFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -149,6 +157,7 @@ enterFilterValue(filterName, filterValue){
       this.statusFilterTextBox.should('be.visible');
       this.statusFilterTextBox
       .click()
+      .clear()
       .type(valueToEnter); 
       //Check the correct filter is shown at the bottom
       this.checkSelectedFiltersValue(filterValue)
@@ -203,9 +212,16 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
         .should('contain',expectedValue);
     break;
     case 'signed':
-      this.signedRow1Result
+      this.signedRow1Result.should('be.visible');
+      if (expectedValue == '0') {
+        this.signedRow1Result
+          .find('[title="Signed"]').should('not.exist'); 
+      }
+      else if (expectedValue == '1') {
+        this.signedRow1Result
         .should('be.visible')
-        .should('contain',expectedValue);
+          .find('[title="Signed"]').should('exist'); 
+      }
     break;
     case 'status':
       this.statusRow1Result
