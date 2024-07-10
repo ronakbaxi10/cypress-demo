@@ -48,6 +48,12 @@ describe('Edit a Project Tag - Then Sign it and Approve it', () => {
     ProjectViewPage.clickViewTagDetailsButton();
     ViewEditTagDetailsPage.approveRevision();
     ViewEditTagDetailsPage.checkTagStatus('Approved');
+    //Return to the Project View Page.
+    ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.backButton);
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
+    //Check the edited tag is shown as Signed and has a Ready for Approval Status
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved')
     HomePage.logOut();
 });
 })

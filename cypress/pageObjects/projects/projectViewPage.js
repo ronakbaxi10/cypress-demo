@@ -235,7 +235,7 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
           break; 
         case '1':
           this.signedRow1Result
-            .find('[title="Signed"]').should('exist'); 
+            .find('[title="Signed"]').should('be.visible');
           break; 
         default:
           cy.get('body').then(() => {
@@ -247,7 +247,7 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
       switch(expectedValue){
         case 'Approved':
           this.statusRow1Result
-            .find('[title="Approved by all approvers"]').should('exist'); 
+            .find('[title="Approved by all approvers"]').should('be.visible');
           break; 
         case 'Initialised':
           this.statusRow1Result
@@ -256,7 +256,7 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
           break; 
         case 'ReadyForApproval':
           this.statusRow1Result
-            .find('[title="Signed by all reviewers and waiting for approval"]').should('exist'); 
+            .find('[title="Signed by all reviewers and waiting for approval"]').should('be.visible');
           break; 
         default:
           cy.get('body').then(() => {
