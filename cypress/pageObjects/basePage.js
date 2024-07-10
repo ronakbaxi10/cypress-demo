@@ -145,6 +145,8 @@ clickOnElement(element){
     element
       .should('be.visible')
       .click();
+    this.loadingSpinner
+    .should('not.be.visible');
 }
 
 checkSelectedFiltersValue(expectedValueInFilter) {

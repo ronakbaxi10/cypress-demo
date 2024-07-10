@@ -2,16 +2,16 @@ import LogInPage from '../../pageObjects/login/loginPage.js';
 import HomePage from '../../pageObjects/homePage.js';
 import ProjectsOverviewPage from '../../pageObjects/projects/projectsOverviewPage.js';
 import ProjectViewPage from '../../pageObjects/projects/projectViewPage.js';
-import ViewEditTagDetailsPage from '../../pageObjects/projects/viewEditTagDetailsPage';
+import ViewEditTagDetailsPage from '../../pageObjects/projects/viewEditTagDetailsPage.js';
 import UsefulFunctions from '../../helpers/usefulFunctions.js';
 
 let username = Cypress.env('username')
 let password = Cypress.env('password')
 let newDescription = 'This is Analogue point A1001' + UsefulFunctions.generateRandomStringLettersOnly(10);
 
-describe('Edit Project Tags', () => {
+describe('Edit a Project Tag - Then Sign it and Approve it', () => {
 
-  it('Check you can edit Project Tags', () => {
+  it('Edit a Project Tag - Then Sign it and Approve it', () => {
     cy.visit('/guardian/Default.aspx');  
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
@@ -23,7 +23,8 @@ describe('Edit Project Tags', () => {
     ProjectViewPage.clickViewTagDetailsButton();
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
     ViewEditTagDetailsPage.checkTagStatus('In Draft');
-    ViewEditTagDetailsPage.editTagValueAndSign('Description',newDescription);
+    ViewEditTagDetailsPage.editTagValue('Description',newDescription);
+    ViewEditTagDetailsPage.submitAndSignRevision();
     ViewEditTagDetailsPage.checkTagStatus('Ready For Approval');
     //Save NEW Tag Revision so we can compare to the original
     ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.tagRevisionNumberLabel,'newTagRevision');  
@@ -43,6 +44,10 @@ describe('Edit Project Tags', () => {
     cy.get('@originalTagDescription').then((description) => {
       ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description',description)       
     });
+    //Now approve the change
+    ProjectViewPage.clickViewTagDetailsButton();
+    ViewEditTagDetailsPage.approveRevision();
+    ViewEditTagDetailsPage.checkTagStatus('Approved');
     HomePage.logOut();
 });
 })

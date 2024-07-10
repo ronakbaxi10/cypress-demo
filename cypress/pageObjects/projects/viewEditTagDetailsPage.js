@@ -18,9 +18,33 @@ class viewEditTagDetailsPage extends BasePage {
     return cy.get('#MainContent_submitConfirmationPopup_confirmSignButton_CD');
   }
 
-  get revisionSignedSuccessfullyAlert() {
-    return cy.xpath('//p[text()="Revision is signed successfully."]',{timeout: 30000});
+  get approveButton() {
+    return cy.get('#MainContent_approveButton');
+  }
+
+  get rejectButton() {
+    return cy.get('#MainContent_rejectButton');
+  }
+
+  get confirmApproveOrRejectButton() {
+    return cy.get('#MainContent_popup_confirmButton_CD');
+  }
+
+  get copyButton() {
+    return cy.get('#MainContent_copyButton');
   }  
+
+  get revisionSignedSuccessfullyAlert() {
+    return cy.xpath('//p[text()="Revision is signed successfully."]');
+  }  
+
+  get revisionApprovedSuccessfullyAlert() {
+    return cy.xpath('//p[text()="Revision is approved successfully."]');
+  } 
+
+  get revisionRejectedSuccessfullyAlert() {
+    return cy.xpath('//p[text()="Revision is rejected successfully."]');
+  }   
 
   get tagStatusLabel() {
     return cy.get('#MainContent_revisionDetailsCallbackPanel_objectStatusLabel');
@@ -38,7 +62,7 @@ class viewEditTagDetailsPage extends BasePage {
     return cy.get('#MainContent_backButton');
   }   
 
-  editTagValueAndSign(itemToChange, newValue) {
+  editTagValue(itemToChange, newValue) {
     switch (itemToChange) {
       case 'Description':
         this.descriptionTextBox
@@ -52,10 +76,25 @@ class viewEditTagDetailsPage extends BasePage {
           throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + itemToChange +'.');
         }) 
     }  
+  } 
+  
+  submitAndSignRevision(){
     this.clickOnElement(this.submitAndSignButton);
     this.clickOnElement(this.confirmSubmitConfirmationButton);
     this.revisionSignedSuccessfullyAlert.should('be.visible');
-  }  
+  }
+
+  approveRevision(){
+    this.clickOnElement(this.approveButton);
+    this.clickOnElement(this.confirmApproveOrRejectButton);
+    this.revisionApprovedSuccessfullyAlert.should('be.visible');
+  }
+
+  rejectRevision(){
+    this.clickOnElement(this.rejectButton);
+    this.clickOnElement(this.confirmApproveOrRejectButton);
+    this.revisionRejectedSuccessfullyAlert.should('be.visible');
+  }
 
   checkTagStatus(expectedStatus){
     this.tagStatusLabel
@@ -84,6 +123,6 @@ class viewEditTagDetailsPage extends BasePage {
           throw new Error('ERROR! No items in the switch statement match the passed in value of: ' + fieldToCheck +'.');
       }) 
     }  
-  }  
+  } 
 }
 export default new viewEditTagDetailsPage();
