@@ -157,7 +157,7 @@ checkColumnTitleIsDisplayed(columnTitleToCheck){
 checkColumnTitleIsNotDisplayed(columnTitleToCheck){
   this.updatingGridPopUp.should('not.be.visible');
   cy.xpath(`//td[contains(@class,"dx-ellipsis") and text()="${columnTitleToCheck}"]`)
-    .should('not.be.visible');
+    .should('not.exist');
 }
 
 enterAndCheckFilterValue(filterName, filterValue){

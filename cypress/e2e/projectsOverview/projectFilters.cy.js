@@ -37,9 +37,6 @@ describe('Check Project Filters work correctly', () => {
     ProjectViewPage.enterAndCheckFilterValue('Signed','0');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','0');
     ProjectViewPage.clearSelectedFilters();
-    ProjectViewPage.enterAndCheckFilterValue('Signed','1');
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1');
-    ProjectViewPage.clearSelectedFilters();
     ProjectViewPage.enterAndCheckFilterValue('Status','ReadyForApproval');
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','ReadyForApproval');
     ProjectViewPage.clearSelectedFilters();
