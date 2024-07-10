@@ -15,6 +15,15 @@ class homePage extends BasePage {
         .should('be.visible')
         .click();
     }
+
+    //This should only be used by the afterEach hook when a test fails
+    forceLogOutAfterFailedTest(){
+    this.logOutButton.click({ force: true });
+    //Make sure it is fully logged out!
+    LoginPage.usernameTextBox
+    .should('be.visible')
+    .click();
+    }
 }
 
 export default new homePage();

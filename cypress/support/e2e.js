@@ -26,6 +26,7 @@ require('cypress-xpath');
 import "cypress-real-events";
 //This must here to use the cypress=-iframe plugin
 import 'cypress-iframe';
+import HomePage from '../pageObjects/homePage.js';
 
 //This stops uncaught:exceptions in the website code from failing teh Cypress tests:
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -37,6 +38,16 @@ beforeEach(() => {
   cy.clearCookies()
   cy.clearLocalStorage()
   cy.clearAllSessionStorage({log: true})
+});
+
+afterEach(() => {
+  //Everything in here runs after EACH test i.e. each IT block
+  //If the test failed and didn't log out - log out so the user account doesn't get locked out
+  cy.get("body").then($body => {
+    if ($body.find("#userProfileImageUserMenu").length > 0) {   
+        HomePage.forceLogOutAfterFailedTest();
+    }
+  });
 });
 
 
