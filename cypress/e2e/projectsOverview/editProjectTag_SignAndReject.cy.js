@@ -10,9 +10,9 @@ let username = Cypress.env('username')
 let password = Cypress.env('password')
 let newDescription = 'This is Analogue point A1001' + UsefulFunctions.generateRandomStringLettersOnly(10);
 
-describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
+describe('Edit a Project Tag and Sign it. Then REJECT it', () => {
 
-  it('Edit a Project Tag and Sign it. Then APPROVE it', () => {
+  it('Edit a Project Tag and Sign it. Then REJECT it', () => {
     cy.visit('/guardian/Default.aspx');  
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
@@ -58,24 +58,27 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
       MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',description)       
     });
 
-    //Now return to View/Edit Revision and APPROVE the change
+    //Now return to View/Edit Revision and REJECT the change
     MasterDatabasePage.viewFirstTagDetails();
-    ViewEditTagDetailsPage.approveRevision();
-    ViewEditTagDetailsPage.checkTagStatus('Approved');
+    ViewEditTagDetailsPage.rejectRevision();
+    ViewEditTagDetailsPage.checkTagStatus('Rejected');
     
     //Return to the Master Database
     ViewEditTagDetailsPage.clickBackButton();
     //Locate the tab and check the description HAS now been updated as it HAS been Approved
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',newDescription)   
+    //Get the original description from the alias we saved earlier and check it has NOT changed as it has NOT been REJECTED
+    cy.get('@originalTagDescription').then((description) => {
+      MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',description)       
+    });
 
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     //Check the edited tag is shown as Signed and has a Ready for Approval Status
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved')
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','0')
+    ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Rejected')
     
     HomePage.logOut();
 });

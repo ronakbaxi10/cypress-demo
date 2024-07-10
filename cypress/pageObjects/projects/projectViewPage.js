@@ -258,6 +258,10 @@ checkRow1ColumnFieldContainsValue(columnName, expectedValue){
           this.statusRow1Result
             .find('[title="Signed by all reviewers and waiting for approval"]').should('be.visible');
           break; 
+        case 'Rejected':
+          this.statusRow1Result
+            .find('[src*="Rejected"]').should('be.visible');
+          break; 
         default:
           cy.get('body').then(() => {
             throw new Error('ERROR! No items in the STATUS switch statement match the passed in expected value of: ' + expectedValue +'.');
