@@ -60,7 +60,16 @@ class viewEditTagDetailsPage extends BasePage {
   
   get backButton() {
     return cy.get('#MainContent_backButton');
+  } 
+  
+  get descriptionDeployedValueLabel() {
+    return cy.get('#MainContent_UC1_textBoxDeployedValueDiv');
   }   
+  
+  clickBackButton(){
+    this.clickOnElement(this.backButton);
+    this.coverWhilePageFullyLoads.should('not.be.visible');
+  }
 
   editTagValue(itemToChange, newValue) {
     switch (itemToChange) {

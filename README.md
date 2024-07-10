@@ -1328,6 +1328,44 @@ You could then get the element selector for that element and add some code to wa
 Add this to the test and hopefully it might fix your problem and you can do away with the cy.wait()
 
 ------------------------------------------------------------------------------------------------------------------ 
+# How I added a afterEach hook to force logout if a test fails
+
+I was getting locked out when a test failed as it didn't log out or I was running out of licences.
+
+So I added an afterEach to logout if the test had not logged out.
+
+In e2e.js I added the following:
+
+import HomePage from '../pageObjects/homePage.js';
+
+afterEach(() => {
+  //Everything in here runs after EACH test i.e. each IT block
+  //If the test failed and didn't log out - log out so the user account doesn't get locked out
+  cy.get("body").then($body => {
+    if ($body.find("#userProfileImageUserMenu").length > 0) {   
+        HomePage.forceLogOutAfterFailedTest();
+    }
+  });
+});
+
+
+Note you have to use body.find followed by the element selector to check if an element exists - or it will fail it not there.
+
+
+On the homePage I added the following function:
+
+    //This should only be used by the afterEach hook when a test fails
+    forceLogOutAfterFailedTest(){
+    this.logOutButton.click({ force: true });
+    //Make sure it is fully logged out!
+    LoginPage.usernameTextBox
+    .should('be.visible')
+    .click();
+    }
+
+
+Note I added the { force: true } command so I could just click it without having to open the menu first.
+------------------------------------------------------------------------------------------------------------------ 
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*

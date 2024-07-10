@@ -37,12 +37,75 @@ get applyButton() {
   return cy.xpath('//span[text()="Apply"]');
 }
 
+get searchFiltersTextBox() {
+  return cy.get('#MainContent_propertiesCallbackPanel_propertiesGridView_DXFREditorcol1_I');
+}
+
+get viewFirstTagIcon() {
+  return cy.get('[id="viewLink_1"]');
+}
+
+get viewRevisionIcon() {
+  return cy.get('span[title="View latest revision"]');
+}
+
+viewFirstTagDetails(){
+  this.clickOnElement(this.viewFirstTagIcon);
+  this.clickOnElement(this.viewRevisionIcon);
+  this.topPageTitle
+    .should('be.visible')
+    .should('contain','Revision View/Edit');
+}
+
+addColumnIfNotAlreadyShown(column){
+  this.updatingGridPopUp.should('not.be.visible');
+  cy.get("body").then($body => {
+    if ($body.find("td.dx-ellipsis:contains('Description')").length > 0) {   
+      cy.task("log","***************Column is already shown - nothing to do here***************************");
+    }
+    else {
+      cy.task("log","***************Adding the column***************************").then(() => {
+      this.clickCustomiseViewButton();
+      this.customiseViewAddColumn(column);
+      this.checkColumnTitleIsDisplayed(column);
+      })
+    }
+  });
+}
+
+removeColumnIfShown(column){
+  this.updatingGridPopUp.should('not.be.visible');
+  cy.get("body").then($body => {
+    if ($body.find("td.dx-ellipsis:contains('Description')").length > 0) {   
+      cy.task("log","***************Removing the column***************************").then(() => {
+      this.clickCustomiseViewButton();
+      this.customiseViewRemoveColumn(column);
+      this.checkColumnTitleIsNotDisplayed(column);
+    })
+    }
+    else {
+      cy.task("log","***************Column is NOT shown - nothing to do here***************************");
+      }
+  });
+}
+
 clickCustomiseViewButton(){
   this.clickOnElement(this.customiseViewButton);
   this.customiseMasterDatabaseTitle.should('be.visible');
 }
 
+enterTextInDataFieldSearchTextBox(searchText){
+  this.searchFiltersTextBox
+    .should('be.visible')
+    .click()
+    .clear()
+    .type(searchText+'{enter}');
+    this.loadingSpinner.should('not.be.visible');
+    this.clearFiltersHyperlink.should('be.visible');
+}
+
 customiseViewAddColumn(columnToAdd){
+  this.enterTextInDataFieldSearchTextBox(columnToAdd);
   //See if the checkbox is already checked - if not check it
   let checkBoxElementSelector = `//td[text()="${columnToAdd}"]/preceding-sibling::td[1]/span`;
   cy.xpath(checkBoxElementSelector)
@@ -63,14 +126,15 @@ customiseViewAddColumn(columnToAdd){
   this.updatingGridPopUp.should('not.be.visible');    
 }
 
-customiseViewRemoveColumn(columnToAdd){
+customiseViewRemoveColumn(columnToRemove){
+  this.enterTextInDataFieldSearchTextBox(columnToRemove);
   //See if the checkbox is already UNchecked - if not UNcheck it
-  let checkBoxElementSelector = `//td[text()="${columnToAdd}"]/preceding-sibling::td[1]/span`;
+  let checkBoxElementSelector = `//td[text()="${columnToRemove}"]/preceding-sibling::td[1]/span`;
   cy.xpath(checkBoxElementSelector)
     .then(($element) => {
     var attr = $element.attr('class');
     if (attr.includes('Unchecked')) {
-      cy.task("log","******************************The "+columnToAdd+" column is already NOT selected - nothing to do here!***************************");
+      cy.task("log","******************************The "+columnToRemove+" column is already NOT selected - nothing to do here!***************************");
     }
     else
     {
@@ -86,13 +150,13 @@ customiseViewRemoveColumn(columnToAdd){
 
 checkColumnTitleIsDisplayed(columnTitleToCheck){
   this.updatingGridPopUp.should('not.be.visible');
-  cy.xpath(`//td[text()="${columnTitleToCheck}"]`)
+  cy.xpath(`//td[contains(@class,"dx-ellipsis") and text()="${columnTitleToCheck}"]`)
     .should('be.visible');
 }
 
 checkColumnTitleIsNotDisplayed(columnTitleToCheck){
   this.updatingGridPopUp.should('not.be.visible');
-  cy.xpath(`//td[text()="${columnTitleToCheck}"]`)
+  cy.xpath(`//td[contains(@class,"dx-ellipsis") and text()="${columnTitleToCheck}"]`)
     .should('not.be.visible');
 }
 
@@ -115,7 +179,7 @@ getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
         cy.log("************"+filterTitle+" = Column "+((parseInt(index))-1) +"***************")
         this.filterInputFieldsArray.eq(((parseInt(index))-1))
           .should('be.visible')
-          .click()
+          .clear()
           .type(valueToEnter)
           .then(() => {matchingTitle = true;})
       }
