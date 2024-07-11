@@ -64,7 +64,7 @@ viewFirstTagDetails(){
 addColumnIfNotAlreadyShown(column){
   this.updatingGridPopUp.should('not.be.visible');
   cy.get("body").then($body => {
-    if ($body.find("td.dx-ellipsis:contains('Description')").length > 0) {   
+    if ($body.find(`td.dx-ellipsis:contains('${column}')`).length > 0) {   
       cy.task("log","***************Column is already shown - nothing to do here***************************");
     }
     else {
@@ -80,7 +80,7 @@ addColumnIfNotAlreadyShown(column){
 removeColumnIfShown(column){
   this.updatingGridPopUp.should('not.be.visible');
   cy.get("body").then($body => {
-    if ($body.find("td.dx-ellipsis:contains('Description')").length > 0) {   
+    if ($body.find(`td.dx-ellipsis:contains('${column}')`).length > 0) {   
       cy.task("log","***************Removing the column***************************").then(() => {
       this.clickCustomiseViewButton();
       this.customiseViewRemoveColumn(column);
@@ -107,6 +107,7 @@ enterTextInDataFieldSearchTextBox(searchText){
     .type(searchText+'{enter}');
     this.loadingSpinner.should('not.be.visible');
     this.clearFiltersHyperlink.should('be.visible');
+    this.checkSelectedFiltersValue(searchText)
 }
 
 customiseViewAddColumn(columnToAdd){

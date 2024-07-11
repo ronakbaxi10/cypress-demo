@@ -1374,6 +1374,17 @@ On the homePage I added the following function:
 
 Note I added the { force: true } command so I could just click it without having to open the menu first.
 ------------------------------------------------------------------------------------------------------------------ 
+# css selector looking for 2 different classes (or)
+
+Use use a COMMA to signify OR
+
+So in the selector before we look for .dxgvFilterBarLink_Glass OR .dxgvFilterBarLink_DevEx
+
+get selectedFiltersText() {
+  return cy.get('.dxgvFilterBarLink_Glass,.dxgvFilterBarLink_DevEx');
+}
+
+------------------------------------------------------------------------------------------------------------------ 
 # Storing variables to store values in Cypress
 
 *Note the following is for INFO only – in Cypress you should store values that are required later in the test as ALIASES.*

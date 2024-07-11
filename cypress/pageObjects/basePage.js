@@ -118,7 +118,7 @@ get filterSelectedCheckBox() {
 }
 
 get selectedFiltersText() {
-  return cy.get('.dxgvFilterBarLink_DevEx');
+  return cy.get('.dxgvFilterBarLink_Glass,.dxgvFilterBarLink_DevEx');
 }
 
 get clearFiltersHyperlink() {
