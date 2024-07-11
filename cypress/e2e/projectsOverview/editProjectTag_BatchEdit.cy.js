@@ -21,6 +21,10 @@ describe('Batch Edit some Project Tags', () => {
     //Add a filter value so the Tags you want to select are shown then select the specific ones you want
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','D100');
     ProjectViewPage.selectSpecificTagFromTagName('D1001');
+    ProjectViewPage.selectSpecificTagFromTagName('D1002');
+    ProjectViewPage.selectSpecificTagFromTagName('D1003');
+    ProjectViewPage.selectSpecificTagFromTagName('D1004');
+    ProjectViewPage.selectSpecificTagFromTagName('D1005');
     ProjectViewPage.clickOnElement(ProjectViewPage.selectAllIcon);
     cy.wait(2000);
     ProjectViewPage.clickOnElement(ProjectViewPage.batchEditSelectedTagsIcon);
