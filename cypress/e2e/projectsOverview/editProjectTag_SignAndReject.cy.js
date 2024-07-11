@@ -2,7 +2,7 @@ import LogInPage from '../../pageObjects/login/loginPage.js';
 import HomePage from '../../pageObjects/homePage.js';
 import ProjectsOverviewPage from '../../pageObjects/projects/projectsOverviewPage.js';
 import ProjectViewPage from '../../pageObjects/projects/projectViewPage.js';
-import ViewEditTagDetailsPage from '../../pageObjects/projects/viewEditTagDetailsPage.js';
+import RevisionViewEditTagPage from '../../pageObjects/projects/revisionViewEditTagPage.js';
 import UsefulFunctions from '../../helpers/usefulFunctions.js';
 import MasterDatabasePage from '../../pageObjects/masterDatabase/masterDatabasePage.js';
 
@@ -21,15 +21,15 @@ describe('Edit a Project Tag and Sign it. Then REJECT it', () => {
     //Save original Tag Revision as Alias to use later
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
-    ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
-    ViewEditTagDetailsPage.checkTagStatus('In Draft');
-    ViewEditTagDetailsPage.editTagValue('Description',newDescription);
-    ViewEditTagDetailsPage.submitAndSignRevision();
-    ViewEditTagDetailsPage.rejectRevision();
-    ViewEditTagDetailsPage.checkTagStatus('Rejected');
+    RevisionViewEditTagPage.clickOnElement(RevisionViewEditTagPage.editTagButton);
+    RevisionViewEditTagPage.checkTagStatus('In Draft');
+    RevisionViewEditTagPage.editTagValue('Description',newDescription);
+    RevisionViewEditTagPage.submitAndSignRevision();
+    RevisionViewEditTagPage.rejectRevision();
+    RevisionViewEditTagPage.checkTagStatus('Rejected');
 
     //Go back to to the Project View Page
-    ViewEditTagDetailsPage.clickBackButton();
+    RevisionViewEditTagPage.clickBackButton();
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');

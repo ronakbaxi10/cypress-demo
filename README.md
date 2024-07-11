@@ -1374,7 +1374,7 @@ On the homePage I added the following function:
 
 Note I added the { force: true } command so I could just click it without having to open the menu first.
 ------------------------------------------------------------------------------------------------------------------ 
-# css selector looking for 2 different classes (or)
+# css selector looking for 2 different classes (OR)
 
 Use use a COMMA to signify OR
 
@@ -1383,6 +1383,21 @@ So in the selector before we look for .dxgvFilterBarLink_Glass OR .dxgvFilterBar
 get selectedFiltersText() {
   return cy.get('.dxgvFilterBarLink_Glass,.dxgvFilterBarLink_DevEx');
 }
+
+------------------------------------------------------------------------------------------------------------------ 
+# css selector - search for muliple attributes within an element (AND)
+
+The following searches for an input element that has:
+- type attribute of 'text' AND
+- an id attribute that CONTAINS 'MainContent_UC' AND
+- it has a maxlength attribute (with any value as we haven't specified it)
+- An autocomplate attribute (with any value as we haven't specified it)
+
+input[type='text'][id*=MainContent_UC][maxlength][autocomplete]
+
+I used the above to find this element:
+
+<input class="dxeEditArea_Moderno dxeEditAreaSys" id="MainContent_UC6402_TextBox_6402_I" name="ctl00$MainContent$UC6402$TextBox_6402" onchange="ASPx.EValueChanged('MainContent_UC6402_TextBox_6402')" type="text" maxlength="80" autocomplete="off">
 
 ------------------------------------------------------------------------------------------------------------------ 
 # Storing variables to store values in Cypress

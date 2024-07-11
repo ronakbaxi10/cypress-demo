@@ -2,7 +2,7 @@ import LogInPage from '../../pageObjects/login/loginPage.js';
 import HomePage from '../../pageObjects/homePage.js';
 import ProjectsOverviewPage from '../../pageObjects/projects/projectsOverviewPage.js';
 import ProjectViewPage from '../../pageObjects/projects/projectViewPage.js';
-import ViewEditTagDetailsPage from '../../pageObjects/projects/viewEditTagDetailsPage.js';
+import RevisionViewEditTagPage from '../../pageObjects/projects/revisionViewEditTagPage.js';
 import UsefulFunctions from '../../helpers/usefulFunctions.js';
 import MasterDatabasePage from '../../pageObjects/masterDatabase/masterDatabasePage.js';
 
@@ -24,14 +24,14 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     //Now look up and change the tag we are going to copy FROM
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     ProjectViewPage.clickViewTagDetailsButton();
-    ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
-    ViewEditTagDetailsPage.editTagValue('Description',newDescription);
-    ViewEditTagDetailsPage.submitAndSignRevision();
-    ViewEditTagDetailsPage.approveRevision();
-    ViewEditTagDetailsPage.checkTagStatus('Approved');
+    RevisionViewEditTagPage.clickOnElement(RevisionViewEditTagPage.editTagButton);
+    RevisionViewEditTagPage.editTagValue('Description',newDescription);
+    RevisionViewEditTagPage.submitAndSignRevision();
+    RevisionViewEditTagPage.approveRevision();
+    RevisionViewEditTagPage.checkTagStatus('Approved');
 
     //Now copy the changed property to a different tag
-    ViewEditTagDetailsPage.copyPropertyToTag('Description','A1002');
+    RevisionViewEditTagPage.copyPropertyToTag('Description','A1002');
     
     //Move to to the Master Database
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
@@ -49,7 +49,7 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1002');
     //Save NEW Tag Revision and then compare to the original
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'newTagRevision');   
-    ViewEditTagDetailsPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
+    RevisionViewEditTagPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
     //Check the edited tag is shown as Signed and has a Ready for Approval Status
     ProjectViewPage.checkRow1ColumnFieldEqualsValue('Signed','1')
     ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved')

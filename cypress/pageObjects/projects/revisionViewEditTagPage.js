@@ -1,6 +1,6 @@
 import BasePage from '../basePage';
 
-class viewEditTagDetailsPage extends BasePage {
+class revisionViewEditTagPage extends BasePage {
 
   get editTagButton() {
     return cy.get('#MainContent_editButton');
@@ -8,14 +8,6 @@ class viewEditTagDetailsPage extends BasePage {
 
   get descriptionTextBox() {
     return cy.get('#MainContent_UC1_TextBox_1_I');
-  }
-
-  get submitAndSignButton() {
-    return cy.get('#MainContent_submitButton_CD');
-  }
-
-  get confirmSubmitConfirmationButton() {
-    return cy.get('#MainContent_submitConfirmationPopup_confirmSignButton_CD');
   }
 
   get approveButton() {
@@ -32,10 +24,6 @@ class viewEditTagDetailsPage extends BasePage {
 
   get copyButton() {
     return cy.get('#MainContent_copyButton');
-  }  
-
-  get revisionSignedSuccessfullyAlert() {
-    return cy.xpath('//p[text()="Revision is signed successfully."]');
   }  
 
   get revisionApprovedSuccessfullyAlert() {
@@ -114,7 +102,7 @@ class viewEditTagDetailsPage extends BasePage {
         }) 
     }  
   } 
-  
+
   submitAndSignRevision(){
     this.clickOnElement(this.submitAndSignButton);
     this.clickOnElement(this.confirmSubmitConfirmationButton);
@@ -168,6 +156,9 @@ class viewEditTagDetailsPage extends BasePage {
     this.clickOnElement(this.nextButton);
     cy.scrollTo('top', { duration: 1000 });
     this.clickOnElement(this.copyPropertyFinishButton);
+    this.progressBar
+      .should('be.visible')
+      .should('have.text','100%');
     this.copyPropertyStatusLabel
       .should('be.visible')
       .should('have.text','1 fields values were copied to 1 Tags successfully.');
@@ -188,4 +179,4 @@ class viewEditTagDetailsPage extends BasePage {
     }  
   } 
 }
-export default new viewEditTagDetailsPage();
+export default new revisionViewEditTagPage();

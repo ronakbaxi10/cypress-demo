@@ -2,7 +2,7 @@ import LogInPage from '../../pageObjects/login/loginPage.js';
 import HomePage from '../../pageObjects/homePage.js';
 import ProjectsOverviewPage from '../../pageObjects/projects/projectsOverviewPage.js';
 import ProjectViewPage from '../../pageObjects/projects/projectViewPage.js';
-import ViewEditTagDetailsPage from '../../pageObjects/projects/viewEditTagDetailsPage.js';
+import RevisionViewEditTagPage from '../../pageObjects/projects/revisionViewEditTagPage.js';
 import UsefulFunctions from '../../helpers/usefulFunctions.js';
 import MasterDatabasePage from '../../pageObjects/masterDatabase/masterDatabasePage.js';
 
@@ -22,21 +22,21 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
     //Save original Tag Description as Alias to use later
-    ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
-    ViewEditTagDetailsPage.checkTagStatus('In Draft');
-    ViewEditTagDetailsPage.editTagValue('Description',newDescription);
-    ViewEditTagDetailsPage.submitAndSignRevision();
+    RevisionViewEditTagPage.clickOnElement(RevisionViewEditTagPage.editTagButton);
+    RevisionViewEditTagPage.checkTagStatus('In Draft');
+    RevisionViewEditTagPage.editTagValue('Description',newDescription);
+    RevisionViewEditTagPage.submitAndSignRevision();
 
     //Check the details on the View/Edit Revision Page
-    ViewEditTagDetailsPage.checkTagStatus('Ready For Approval');
+    RevisionViewEditTagPage.checkTagStatus('Ready For Approval');
     //Save NEW Tag Revision and then compare to the original
-    ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.tagRevisionNumberLabel,'newTagRevision');  
-    ViewEditTagDetailsPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
+    RevisionViewEditTagPage.saveElementTextAsAlias(RevisionViewEditTagPage.tagRevisionNumberLabel,'newTagRevision');  
+    RevisionViewEditTagPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
     //Check the NEW description is shown
-    ViewEditTagDetailsPage.assertValue('Description', newDescription);
+    RevisionViewEditTagPage.assertValue('Description', newDescription);
     
     //Return to the Project View Page
-    ViewEditTagDetailsPage.clickBackButton();
+    RevisionViewEditTagPage.clickBackButton();
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     //Check the edited tag is shown as Signed and has a Ready for Approval Status
     ProjectViewPage.checkRow1ColumnFieldEqualsValue('Signed','1')
@@ -58,8 +58,8 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
 
     //Now return to View/Edit Revision and APPROVE the change
     MasterDatabasePage.viewFirstTagDetails();
-    ViewEditTagDetailsPage.approveRevision();
-    ViewEditTagDetailsPage.checkTagStatus('Approved');
+    RevisionViewEditTagPage.approveRevision();
+    RevisionViewEditTagPage.checkTagStatus('Approved');
 
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');

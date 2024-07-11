@@ -6,7 +6,7 @@ import SharedFunctions from './sharedFunctions';
 class BasePage extends SharedFunctions {
   
   get loadingSpinner() {
-		return cy.xpath('//span[text()="Loading…"]');
+		return cy.xpath('//span[text()="Loading…"]',{timeout:60000});
 	} 
   
   get userProfileIcon() {
@@ -36,6 +36,22 @@ class BasePage extends SharedFunctions {
   get nextButton() {
     return cy.xpath('//span[text()="Next"]');
   }
+
+  get submitAndSignButton() {
+    return cy.get('#MainContent_submitButton_CD');
+  }
+
+  get confirmSubmitConfirmationButton() {
+    return cy.get('#MainContent_submitConfirmationPopup_confirmSignButton_CD');
+  }
+
+  get revisionSignedSuccessfullyAlert() {
+    return cy.xpath('//p[text()="Revision is signed successfully."]');
+  } 
+  
+  get progressBar() {
+    return cy.get('#MainContent_progressPanelPopup_progressPanelUpdateCallback_progressBar_ctl01_VIC');
+  } 
   
 //Left Hand menu links
 

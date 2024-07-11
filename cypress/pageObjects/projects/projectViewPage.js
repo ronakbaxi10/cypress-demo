@@ -10,12 +10,14 @@ class projectViewPage extends BasePage {
     return cy.get('[title="View Details"]');
   }
 
-  get viewTagDetailsButton() {
-    return cy.get('[title="View Details"]');
+  get selectAllIcon() {
+    return cy.get('#MainContent_projectViewMenu_DXI2_Img');
   }
 
-  MainContent_callbackPanel_projectViewGridView_TL
-  
+  get batchEditSelectedTagsIcon() {
+    return cy.get('#MainContent_projectViewMenu_DXI9_Img');
+  }
+
   //Filter Text Boxes
   get updatedDateFilterTextBox() {
     return cy.get('#MainContent_callbackPanel_projectViewGridView_DXFREditorcol5_I');
