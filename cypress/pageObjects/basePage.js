@@ -234,13 +234,13 @@ clickAndCheckLeftHandMenuLink(linkToTest){
     this.adminLeftHandMenuLink.then($element => {
       var attr = $element.attr('class');
       if (attr == 'treeview') {
-        cy.task("log","The admin menu is NOT already open - so opening it");
+        //The admin menu is NOT already open - so opening it
         this.adminLeftHandMenuLink
         .should('be.visible')
         .click(); 
     }
     else {
-      cy.task("log","The admin menu IS already open!");
+      //The admin menu IS already open!
     }
   })   
     switch (linkToTest.toLowerCase()) {
