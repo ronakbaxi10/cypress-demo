@@ -65,7 +65,31 @@ class viewEditTagDetailsPage extends BasePage {
   get descriptionDeployedValueLabel() {
     return cy.get('#MainContent_UC1_textBoxDeployedValueDiv');
   }   
-  
+
+  get copyPropertyTagNameTextBox() {
+    return cy.get('#MainContent_copyPopup_copyPopupCallbackPanel_objectsGridViewCallbackPanel_objectsGridView_DXFREditorcol1_I');
+  }  
+
+  get copyPropertyRow1ResultsTagCheckBox() {
+    return cy.get('#MainContent_copyPopup_copyPopupCallbackPanel_objectsGridViewCallbackPanel_objectsGridView_DXSelBtn0_D');
+  }  
+
+  get copyPropertySelectTagRow1ResultsTagNameField() {
+    return cy.get('[id*="objectsGridView_DXDataRow0"] td:nth-child(2)');
+  }  
+
+  get copyPropertyFinishButton() {
+    return cy.get('#MainContent_copyPopup_copyPopupCallbackPanel_wizardFinishButton_CD > .dx-vam');
+  }
+
+  get copyPropertyFinalFinishButton() {
+    return cy.get('#MainContent_progressPanelPopup_progressFinishButton_CD > .dx-vam');
+  }  
+
+  get copyPropertyStatusLabel() {
+    return cy.get('#statusLabel');
+  }    
+
   clickBackButton(){
     this.clickOnElement(this.backButton);
     this.coverWhilePageFullyLoads.should('not.be.visible');
@@ -118,6 +142,30 @@ class viewEditTagDetailsPage extends BasePage {
         expect(parseFloat(newTagVersion.replace('0.',''))).to.eq(parseFloat(originalTagVersion.replace('0.','')) + 1);
       });
     });
+  }
+
+  copyPropertyToTag(propertyName,tagCopyTo){
+    this.clickOnElement(this.copyButton);
+    this.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[1]/preceding-sibling::td[1]`));
+    this.clickOnElement(this.nextButton);
+    this.copyPropertyTagNameTextBox
+      .click()
+      .type(tagCopyTo+'{enter}'); 
+    this.loadingSpinner.should('not.be.visible');
+    this.clearFiltersHyperlink.should('be.visible');
+    this.copyPropertySelectTagRow1ResultsTagNameField
+      .should('be.visible')
+      .should('have.text',tagCopyTo);
+    this.clickOnElement(this.copyPropertyRow1ResultsTagCheckBox);
+    this.clickOnElement(this.nextButton);
+    this.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[2]/preceding-sibling::td[1]`));this.clickOnElement(this.nextButton);
+    this.clickOnElement(this.nextButton);
+    cy.scrollTo('top', { duration: 1000 });
+    this.clickOnElement(this.copyPropertyFinishButton);
+    this.copyPropertyStatusLabel
+      .should('be.visible')
+      .should('have.text','1 fields values were copied to 1 Tags successfully.');
+    this.clickOnElement(this.copyPropertyFinalFinishButton);    
   }
 
   assertValue(fieldToCheck, expectedDescription){

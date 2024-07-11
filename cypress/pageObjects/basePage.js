@@ -32,6 +32,10 @@ class BasePage extends SharedFunctions {
   get updatingGridPopUp() {
     return cy.get('#MainContent_callbackPanel_TL');
   }
+
+  get nextButton() {
+    return cy.xpath('//span[text()="Next"]');
+  }
   
 //Left Hand menu links
 

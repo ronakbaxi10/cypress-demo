@@ -529,6 +529,14 @@ this.errorTitle.scrollIntoView()
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+# Scroll to top or bottom of page
+
+cy.scrollTo('top', { duration: 1000 });
+
+cy.scrollTo('bottom', { duration: 1000 });
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
 # #How to check and uncheck checkboxes and assert they have correctly been checked/unchecked:
   checkAndUncheckSanderCheckBox() {
     this.sanderCheckBox
