@@ -71,6 +71,8 @@ describe('Edit a Project Tag and Sign it. Then REJECT it', () => {
     cy.get('@originalTagDescription').then((description) => {
       MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',description)       
     });
+    //Remove the column so the test leaves the website in the state it was at the beginning
+    MasterDatabasePage.removeColumnIfShown('Description');
 
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');

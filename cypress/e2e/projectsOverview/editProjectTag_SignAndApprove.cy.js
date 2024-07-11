@@ -68,6 +68,8 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     //Locate the tag and check the description HAS now been updated as it HAS been Approved
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',newDescription)   
+    //Remove the column so the test leaves the website in the state it was at the beginning
+    MasterDatabasePage.removeColumnIfShown('Description');
 
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
