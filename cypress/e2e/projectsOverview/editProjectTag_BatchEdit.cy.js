@@ -25,8 +25,6 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.selectSpecificTagFromTagName('D1003');
     ProjectViewPage.selectSpecificTagFromTagName('D1004');
     ProjectViewPage.selectSpecificTagFromTagName('D1005');
-    ProjectViewPage.clickOnElement(ProjectViewPage.selectAllIcon);
-    cy.wait(2000);
     ProjectViewPage.clickOnElement(ProjectViewPage.batchEditSelectedTagsIcon);
     RevisionViewBatchEditTagPage.clickOnElement(RevisionViewBatchEditTagPage.selectFieldsToReviewIcon);
     RevisionViewBatchEditTagPage.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[1]/preceding-sibling::td[1]`));
