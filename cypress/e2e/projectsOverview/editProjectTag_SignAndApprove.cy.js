@@ -51,7 +51,7 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
     //Add the description column if not already shown
     MasterDatabasePage.addColumnIfNotAlreadyShown('Description');
-    //Locate the tab and check the description has NOT yet been updated as it hasn't been Approved
+    //Locate the tag and check the description has NOT yet been updated as it hasn't been Approved
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
     //Get the original description from the alias we saved earlier and check it has NOT yet changed as it has NOT been approved yet
     cy.get('@originalTagDescription').then((description) => {
@@ -65,7 +65,7 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     
     //Return to the Master Database
     ViewEditTagDetailsPage.clickBackButton();
-    //Locate the tab and check the description HAS now been updated as it HAS been Approved
+    //Locate the tag and check the description HAS now been updated as it HAS been Approved
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',newDescription)   
 

@@ -76,6 +76,10 @@ class viewEditTagDetailsPage extends BasePage {
 
   get copyPropertySelectTagRow1ResultsTagNameField() {
     return cy.get('[id*="objectsGridView_DXDataRow0"] td:nth-child(2)');
+  } 
+  
+  get copyPropertyApproveImmediatelyCheckbox() {
+    return cy.get('#MainContent_copyPopup_copyPopupCallbackPanel_copyActionCallbackPanel_isImmediateApprove_S_D');
   }  
 
   get copyPropertyFinishButton() {
@@ -158,7 +162,9 @@ class viewEditTagDetailsPage extends BasePage {
       .should('have.text',tagCopyTo);
     this.clickOnElement(this.copyPropertyRow1ResultsTagCheckBox);
     this.clickOnElement(this.nextButton);
-    this.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[2]/preceding-sibling::td[1]`));this.clickOnElement(this.nextButton);
+    this.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[2]/preceding-sibling::td[1]`));
+    this.clickOnElement(this.nextButton);
+    this.clickOnElement(this.copyPropertyApproveImmediatelyCheckbox);    
     this.clickOnElement(this.nextButton);
     cy.scrollTo('top', { duration: 1000 });
     this.clickOnElement(this.copyPropertyFinishButton);

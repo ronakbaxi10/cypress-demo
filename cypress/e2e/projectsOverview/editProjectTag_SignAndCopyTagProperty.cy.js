@@ -34,20 +34,22 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     //Now copy the changed tag
     ViewEditTagDetailsPage.copyPropertyToTag('Description','A1002');
     
-    //Return to the Master Database
-    ViewEditTagDetailsPage.clickBackButton();
-    //Locate the tab and check the description HAS now been updated as it HAS been Approved
-    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
+    //Move to to the Master Database
+    HomePage.clickAndCheckLeftHandMenuLink('Master Database');
+    //Locate the tag and check the copied description has been updated
+    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1002');
     MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',newDescription)   
 
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
-    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1002');
+    //Save NEW Tag Revision and then compare to the original
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'newTagRevision');   
+    ViewEditTagDetailsPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
     //Check the edited tag is shown as Signed and has a Ready for Approval Status
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
     ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved')
-    
     HomePage.logOut();
 });
 })
