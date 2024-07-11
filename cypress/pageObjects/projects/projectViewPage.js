@@ -283,6 +283,17 @@ clickViewTagDetailsButton(){
     .should('be.visible')
     .should('contain','Revision View/Edit');
 }
+
+selectSpecificTagFromTagName(tagNameToSelect){
+  let checkBoxElementSelector = `//td[text()='${tagNameToSelect}']/preceding-sibling::td[2]/span`;
+  cy.xpath(checkBoxElementSelector)
+    .should('be.visible')
+    .click();
+  //Check the box is now selected:
+  cy.xpath(checkBoxElementSelector)
+        .invoke('attr','class')
+        .should('include','edtCheckBoxChecked_DevEx');
+}
 }
 
 export default new projectViewPage();
