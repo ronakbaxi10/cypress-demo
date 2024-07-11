@@ -40,11 +40,11 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     ViewEditTagDetailsPage.clickBackButton();
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     //Check the edited tag is shown as Signed and has a Ready for Approval Status
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','ReadyForApproval')
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Signed','1')
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','ReadyForApproval')
     //Get the new Tag Revision from the alias we saved earlier and check it is shown correctly on the Project View page
     cy.get('@newTagRevision').then((tagRevision) => {
-      ProjectViewPage.checkRow1ColumnFieldContainsValue('Revision',tagRevision)       
+      ProjectViewPage.checkRow1ColumnFieldEqualsValue('Revision',tagRevision)       
     });
 
     //Move to the Master Database
@@ -55,7 +55,7 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
     //Get the original description from the alias we saved earlier and check it has NOT yet changed as it has NOT been approved yet
     cy.get('@originalTagDescription').then((description) => {
-      MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',description)       
+      MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',description)       
     });
 
     //Now return to View/Edit Revision and APPROVE the change
@@ -67,7 +67,7 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     ViewEditTagDetailsPage.clickBackButton();
     //Locate the tag and check the description HAS now been updated as it HAS been Approved
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Description',newDescription)   
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',newDescription)   
     //Remove the column so the test leaves the website in the state it was at the beginning
     MasterDatabasePage.removeColumnIfShown('Description');
 
@@ -76,8 +76,8 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     //Check the edited tag is shown as Signed and has a Ready for Approval Status
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Signed','1')
-    ProjectViewPage.checkRow1ColumnFieldContainsValue('Status','Approved')
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Signed','1')
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved')
     
     HomePage.logOut();
 });

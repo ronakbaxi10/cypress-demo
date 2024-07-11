@@ -12,19 +12,19 @@ describe('Check Master Database Filters work correctly', () => {
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','D10099');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Tag Name','D10099');
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Tag Name','D10099');
     MasterDatabasePage.clearSelectedFilters();
     MasterDatabasePage.enterAndCheckFilterValue('Project Name','Test Project');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Project Name','Test Project');
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Project Name','Test Project');
     MasterDatabasePage.clearSelectedFilters();
     MasterDatabasePage.enterAndCheckFilterValue('Tag Status','Deployed');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Tag Status','Deployed');
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Tag Status','Deployed');
     MasterDatabasePage.clearSelectedFilters();
     MasterDatabasePage.enterAndCheckFilterValue('Template Name','Digital');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Template Name','Digital'); 
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Template Name','Digital'); 
     MasterDatabasePage.clearSelectedFilters();
     MasterDatabasePage.enterAndCheckFilterValue('Has Alarms','Checked');
-    MasterDatabasePage.checkRow1ColumnFieldContainsValue('Has Alarms','Checked');
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Has Alarms','Checked');
     MasterDatabasePage.clearSelectedFilters();
     HomePage.logOut();
 });

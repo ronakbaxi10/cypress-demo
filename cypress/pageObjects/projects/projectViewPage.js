@@ -186,7 +186,7 @@ enterAndCheckFilterValue(filterName, filterValue){
   this.filterSelectedCheckBox.should('be.visible')
 }
 
-checkRow1ColumnFieldContainsValue(columnName, expectedValue){
+checkRow1ColumnFieldEqualsValue(columnName, expectedValue){
   switch (columnName.toLowerCase()) {
     case 'updated date':
       this.updatedDateRow1Result

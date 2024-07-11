@@ -1099,7 +1099,7 @@ You need to pass in the element you want to extract the text from and the name y
 You can call it and use it your test as follows:
 
 cy.get('@originalTagDescription').then((description) => {
-  ProjectViewPage.checkRow1ColumnFieldContainsValue('Tag Description',description)       
+  ProjectViewPage.checkRow1ColumnFieldEqualsValue('Tag Description',description)       
 });
 ------------------------------------------------------------------------------------------------------------------
 # How to compare aliases
