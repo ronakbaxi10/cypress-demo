@@ -19,7 +19,6 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
     //Look up and save the original Tag Revision of the Tag we are going to copy TO as an Alias to use later
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1002');
-    //Save original Tag Revision as Alias to use later
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
 
     //Now look up and change the tag we are going to copy FROM
@@ -31,7 +30,7 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     ViewEditTagDetailsPage.approveRevision();
     ViewEditTagDetailsPage.checkTagStatus('Approved');
 
-    //Now copy the changed tag
+    //Now copy the changed property to a different tag
     ViewEditTagDetailsPage.copyPropertyToTag('Description','A1002');
     
     //Move to to the Master Database
