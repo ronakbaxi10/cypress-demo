@@ -33,6 +33,10 @@ get customiseMasterDatabaseTitle() {
   return cy.xpath('//h4[text()="Filter view based on"]')
 }
 
+get filterIcon() {
+  return cy.get('.dxGridView_gvFilterRowButton_Glass')
+}
+
 get applyButton() {
   return cy.xpath('//span[text()="Apply"]');
 }
@@ -92,6 +96,7 @@ removeColumnIfShown(column){
 clickCustomiseViewButton(){
   this.clickOnElement(this.customiseViewButton);
   this.customiseMasterDatabaseTitle.should('be.visible');
+  this.filterIcon.should('be.visible');
 }
 
 enterTextInDataFieldSearchTextBox(searchText){
