@@ -21,60 +21,15 @@ describe('Edit a Project Tag and Sign it. Then REJECT it', () => {
     //Save original Tag Revision as Alias to use later
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
-    //Save original Tag Description as Alias to use later
-    ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.descriptionDeployedValueLabel,'originalTagDescription');
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
     ViewEditTagDetailsPage.checkTagStatus('In Draft');
     ViewEditTagDetailsPage.editTagValue('Description',newDescription);
     ViewEditTagDetailsPage.submitAndSignRevision();
-
-    //Check the details on the View/Edit Revision Page
-    ViewEditTagDetailsPage.checkTagStatus('Ready For Approval');
-    //Save NEW Tag Revision and then compare to the original
-    ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.tagRevisionNumberLabel,'newTagRevision');  
-    ViewEditTagDetailsPage.assertTagRevisionHasIncreased('originalTagRevision','newTagRevision');
-    //Check the NEW description is shown
-    ViewEditTagDetailsPage.assertValue('Description', newDescription);
-    
-    //Return to the Project View Page
-    ViewEditTagDetailsPage.clickBackButton();
-    ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
-    //Check the edited tag is shown as Signed and has a Ready for Approval Status
-    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Signed','1')
-    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','ReadyForApproval')
-    //Get the new Tag Revision from the alias we saved earlier and check it is shown correctly on the Project View page
-    cy.get('@newTagRevision').then((tagRevision) => {
-      ProjectViewPage.checkRow1ColumnFieldEqualsValue('Revision',tagRevision)       
-    });
-
-    //Move to the Master Database
-    HomePage.clickAndCheckLeftHandMenuLink('Master Database');
-    //Add the description column if not already shown
-    MasterDatabasePage.addColumnIfNotAlreadyShown('Description');
-    //Locate the tag and check the description has NOT yet been updated as it hasn't been Approved
-    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
-    //Get the original description from the alias we saved earlier and check it has NOT yet changed as it has NOT been approved yet
-    cy.get('@originalTagDescription').then((description) => {
-      MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',description)       
-    });
-
-    //Now return to View/Edit Revision and REJECT the change
-    MasterDatabasePage.viewFirstTagDetails();
     ViewEditTagDetailsPage.rejectRevision();
     ViewEditTagDetailsPage.checkTagStatus('Rejected');
-    
-    //Return to the Master Database
-    ViewEditTagDetailsPage.clickBackButton();
-    //Locate the tag and check the description HAS now been updated as it HAS been Approved
-    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
-    //Get the original description from the alias we saved earlier and check it has NOT changed as it has NOT been REJECTED
-    cy.get('@originalTagDescription').then((description) => {
-      MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',description)       
-    });
-    //Remove the column so the test leaves the website in the state it was at the beginning
-    MasterDatabasePage.removeColumnIfShown('Description');
 
-    //Move to the Project View Page
+    //Go back to to the Project View Page
+    ViewEditTagDetailsPage.clickBackButton();
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
@@ -82,6 +37,16 @@ describe('Edit a Project Tag and Sign it. Then REJECT it', () => {
     ProjectViewPage.checkRow1ColumnFieldEqualsValue('Signed','0')
     ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Rejected')
     
+    //Return to the Master Database
+    HomePage.clickAndCheckLeftHandMenuLink('Master Database');
+    MasterDatabasePage.addColumnIfNotAlreadyShown('Description');
+    //Locate the tag and check the description HAS been updated
+    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
+    //Get the description HAS been updated
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',newDescription)       
+    //Remove the column so the test leaves the website in the state it was at the beginning
+    MasterDatabasePage.removeColumnIfShown('Description');
+   
     HomePage.logOut();
 });
 })

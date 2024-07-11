@@ -182,7 +182,7 @@ getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
 
   let matchingTitle = false;
   this.filterTitlesRowArray.each(($ele, index) => {
-      if ($ele.text().includes(filterTitle)) {
+      if ($ele.text().match(filterTitle)) {
         cy.log("************"+filterTitle+" = Column "+((parseInt(index))-1) +"***************")
         this.filterInputFieldsArray.eq(((parseInt(index))-1))
           .should('be.visible')
@@ -200,16 +200,16 @@ getColumnNumberAndEnterFilterText(filterTitle, valueToEnter){
     })
 }
 
-checkRow1ColumnFieldContainsValue(filterTitle, expectedValue){
+checkRow1ColumnFieldEqualsValue(filterTitle, expectedValue){
   //Find the column number by searching for the passed in Title and check the value. Error if no matching column title found
   let matchingTitle = false;
   this.filterTitlesRowArray.each(($ele, index) => {
-    if ($ele.text().includes(filterTitle)) {
+    if ($ele.text().match(filterTitle)) {
       cy.log("************"+filterTitle+" = Column "+((parseInt(index))-1) +"***************")
       if(expectedValue != 'Checked' && expectedValue != "Unchecked") {
         this.row1ResultFieldsArray.eq(((parseInt(index))))
         .should('be.visible')
-        .should('contain',expectedValue)
+        .should('have.text',expectedValue)
         .then(() => {matchingTitle = true;})
       }
       else {

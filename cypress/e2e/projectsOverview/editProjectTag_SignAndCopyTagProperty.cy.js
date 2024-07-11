@@ -37,12 +37,12 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
     //Add the description column if not already shown
     MasterDatabasePage.addColumnIfNotAlreadyShown('Description');
-    //Locate the tag and check the copied description has been updated
+    //Locate the tag and check the copied description HAS been updated
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1002');
     MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',newDescription)   
-
     //Remove the column so the test leaves the website in the state it was at the beginning
     MasterDatabasePage.removeColumnIfShown('Description');
+
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');

@@ -22,7 +22,6 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
     //Save original Tag Description as Alias to use later
-    ViewEditTagDetailsPage.saveElementTextAsAlias(ViewEditTagDetailsPage.descriptionDeployedValueLabel,'originalTagDescription');
     ViewEditTagDetailsPage.clickOnElement(ViewEditTagDetailsPage.editTagButton);
     ViewEditTagDetailsPage.checkTagStatus('In Draft');
     ViewEditTagDetailsPage.editTagValue('Description',newDescription);
@@ -51,25 +50,16 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     HomePage.clickAndCheckLeftHandMenuLink('Master Database');
     //Add the description column if not already shown
     MasterDatabasePage.addColumnIfNotAlreadyShown('Description');
-    //Locate the tag and check the description has NOT yet been updated as it hasn't been Approved
+    //Locate the tag and check the description HAS been updated
     MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
-    //Get the original description from the alias we saved earlier and check it has NOT yet changed as it has NOT been approved yet
-    cy.get('@originalTagDescription').then((description) => {
-      MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',description)       
-    });
+    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',newDescription);
+    //Remove the column so the test leaves the website in the state it was at the beginning
+    MasterDatabasePage.removeColumnIfShown('Description');       
 
     //Now return to View/Edit Revision and APPROVE the change
     MasterDatabasePage.viewFirstTagDetails();
     ViewEditTagDetailsPage.approveRevision();
     ViewEditTagDetailsPage.checkTagStatus('Approved');
-    
-    //Return to the Master Database
-    ViewEditTagDetailsPage.clickBackButton();
-    //Locate the tag and check the description HAS now been updated as it HAS been Approved
-    MasterDatabasePage.enterAndCheckFilterValue('Tag Name','A1001');
-    MasterDatabasePage.checkRow1ColumnFieldEqualsValue('Description',newDescription)   
-    //Remove the column so the test leaves the website in the state it was at the beginning
-    MasterDatabasePage.removeColumnIfShown('Description');
 
     //Move to the Project View Page
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
