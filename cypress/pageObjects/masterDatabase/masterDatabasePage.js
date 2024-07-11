@@ -97,6 +97,7 @@ clickCustomiseViewButton(){
   this.clickOnElement(this.customiseViewButton);
   this.customiseMasterDatabaseTitle.should('be.visible');
   this.filterIcon.should('be.visible');
+  cy.wait(1000);
 }
 
 enterTextInDataFieldSearchTextBox(searchText){
