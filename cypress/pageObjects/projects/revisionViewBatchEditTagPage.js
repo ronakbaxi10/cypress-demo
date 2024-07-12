@@ -34,6 +34,7 @@ class revisionViewBatchEditTagPage extends BasePage {
         .type(newValue); 
         //Click on title just to take focus off the text box and make sure the text has been submitted
         this.clickOnElement(this.topPageTitle);
+        cy.wait(1000);
         break;  
       default:
         cy.get('body').then(() => {
