@@ -24,6 +24,7 @@ describe('Edit a Project Tag and Sign it. Then COPY it', () => {
     //Now look up and change the tag we are going to copy FROM
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','A1001');
     ProjectViewPage.clickViewTagDetailsButton();
+    RevisionViewEditTagPage.tagNameTitle.should('have.text','A1001');
     RevisionViewEditTagPage.clickOnElement(RevisionViewEditTagPage.editTagButton);
     RevisionViewEditTagPage.editTagValue('Description',newDescription);
     RevisionViewEditTagPage.submitAndSignRevision();
