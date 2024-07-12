@@ -6,6 +6,10 @@ class revisionViewEditTagPage extends BasePage {
     return cy.get('#MainContent_editButton');
   }
 
+  get tagNameTitle() {
+    return cy.get('#objectNameLabel');
+  }
+
   get descriptionTextBox() {
     return cy.get('#MainContent_UC1_TextBox_1_I');
   }

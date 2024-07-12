@@ -52,6 +52,7 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','ReadyForApproval');
     ProjectViewPage.assertTagRevisionHasIncreased('D1001_OriginalTagRevision','D1001_NewTagRevision');
     ProjectViewPage.clickViewTagDetailsButton();
+    RevisionViewEditTagPage.tagNameTitle.should('have.text','D1001');
     RevisionViewEditTagPage.assertValue('Description', newDescription);
     RevisionViewEditTagPage.clickBackButton();
 
@@ -61,6 +62,7 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1002_NewTagRevision');  
     ProjectViewPage.assertTagRevisionHasIncreased('D1002_OriginalTagRevision','D1002_NewTagRevision');
     ProjectViewPage.clickViewTagDetailsButton();
+    RevisionViewEditTagPage.tagNameTitle.should('have.text','D1002');
     RevisionViewEditTagPage.assertValue('Description', newDescription);
     RevisionViewEditTagPage.clickBackButton();
 
@@ -70,6 +72,7 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1003_NewTagRevision');  
     ProjectViewPage.assertTagRevisionHasIncreased('D1003_OriginalTagRevision','D1003_NewTagRevision');
     ProjectViewPage.clickViewTagDetailsButton();
+    RevisionViewEditTagPage.tagNameTitle.should('have.text','D1003');
     RevisionViewEditTagPage.assertValue('Description', newDescription);
     RevisionViewEditTagPage.clickBackButton();
 
@@ -79,6 +82,7 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1004_NewTagRevision');  
     ProjectViewPage.assertTagRevisionHasIncreased('D1004_OriginalTagRevision','D1004_NewTagRevision');
     ProjectViewPage.clickViewTagDetailsButton();
+    RevisionViewEditTagPage.tagNameTitle.should('have.text','D1004');
     RevisionViewEditTagPage.assertValue('Description', newDescription);
     RevisionViewEditTagPage.clickBackButton();
 
@@ -88,6 +92,7 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1005_NewTagRevision');   
     ProjectViewPage.assertTagRevisionHasIncreased('D1005_OriginalTagRevision','D1005_NewTagRevision');
     ProjectViewPage.clickViewTagDetailsButton();
+    RevisionViewEditTagPage.tagNameTitle.should('have.text','D1005');
     RevisionViewEditTagPage.assertValue('Description', newDescription);
     RevisionViewEditTagPage.clickBackButton();
     
