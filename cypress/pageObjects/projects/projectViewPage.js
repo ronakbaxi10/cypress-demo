@@ -18,6 +18,12 @@ class projectViewPage extends BasePage {
     return cy.get('#MainContent_projectViewMenu_DXI9_Img');
   }
 
+  get approveSelectedTagsIcon() {
+    return cy.get('img[title="Approve selected Tags"]');
+  }
+
+  
+
   //Filter Text Boxes
   get updatedDateFilterTextBox() {
     return cy.get('#MainContent_callbackPanel_projectViewGridView_DXFREditorcol5_I');
@@ -282,6 +288,12 @@ clickViewTagDetailsButton(){
   this.topPageTitle
     .should('be.visible')
     .should('contain','Revision View/Edit');
+}
+
+approveSelectedTags(){
+  this.clickOnElement(this.approveSelectedTagsIcon);
+  this.clickOnElement(this.confirmRevisionApproveButton);
+  this.updatingGridPopUp.should('not.be.visible');  
 }
 
 selectSpecificTagFromTagName(tagNameToSelect){

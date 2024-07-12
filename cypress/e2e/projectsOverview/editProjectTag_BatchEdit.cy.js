@@ -39,9 +39,7 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.selectSpecificTagFromTagName('D1004');
     ProjectViewPage.selectSpecificTagFromTagName('D1005');
     ProjectViewPage.clickOnElement(ProjectViewPage.batchEditSelectedTagsIcon);
-    RevisionViewBatchEditTagPage.clickOnElement(RevisionViewBatchEditTagPage.selectFieldsToReviewIcon);
-    RevisionViewBatchEditTagPage.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[1]/preceding-sibling::td[1]`));
-    RevisionViewBatchEditTagPage.clickOnElement(RevisionViewBatchEditTagPage.closeButton);
+    RevisionViewBatchEditTagPage.selectPropertyToEdit('Description');
     RevisionViewBatchEditTagPage.enterNewValue('Description',newDescription)
     RevisionViewBatchEditTagPage.submitAndSignRevision();
 
@@ -95,7 +93,32 @@ describe('Batch Edit some Project Tags', () => {
     RevisionViewEditTagPage.tagNameTitle.should('have.text','D1005');
     RevisionViewEditTagPage.assertValue('Description', newDescription);
     RevisionViewEditTagPage.clickBackButton();
-    
+
+    //Now select the same tags and approve them
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D100');
+    ProjectViewPage.selectSpecificTagFromTagName('D1001');
+    ProjectViewPage.selectSpecificTagFromTagName('D1002');
+    ProjectViewPage.selectSpecificTagFromTagName('D1003');
+    ProjectViewPage.selectSpecificTagFromTagName('D1004');
+    ProjectViewPage.selectSpecificTagFromTagName('D1005');
+    ProjectViewPage.approveSelectedTags();
+
+    //Check they are all now shown as Approved
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1001');
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved');
+
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1002');
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved');
+
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1003');
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved');
+
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1004');
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved');
+
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1005');
+    ProjectViewPage.checkRow1ColumnFieldEqualsValue('Status','Approved');
+
     HomePage.logOut();
 });
 })

@@ -50,6 +50,12 @@ class revisionViewBatchEditTagPage extends BasePage {
         .should('have.text','100%');
       this.clickOnElement(this.finishButton);
   }
+
+  selectPropertyToEdit(propertyName){
+  this.clickOnElement(this.selectFieldsToReviewIcon);
+  this.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[1]/preceding-sibling::td[1]`));
+  this.clickOnElement(this.closeButton);
+  }
 }
 
 export default new revisionViewBatchEditTagPage();

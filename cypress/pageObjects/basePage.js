@@ -45,6 +45,10 @@ class BasePage extends SharedFunctions {
     return cy.get('#MainContent_submitConfirmationPopup_confirmSignButton_CD');
   }
 
+  get confirmRevisionApproveButton() {
+    return cy.get('#MainContent_confirmationPopup_confirmSignButton_CD');
+  }
+
   get revisionSignedSuccessfullyAlert() {
     return cy.xpath('//p[text()="Revision is signed successfully."]');
   } 
