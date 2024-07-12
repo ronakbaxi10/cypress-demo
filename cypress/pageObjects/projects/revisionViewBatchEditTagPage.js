@@ -31,9 +31,9 @@ class revisionViewBatchEditTagPage extends BasePage {
       case 'Description':
         this.descriptionTextBox
         .should('be.visible')
-        .click()
-        .clear()
         .type(newValue); 
+        //Click on title just to take focus off the text box and make sure the text has been submitted
+        this.clickOnElement(this.topPageTitle);
         break;  
       default:
         cy.get('body').then(() => {

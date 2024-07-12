@@ -18,6 +18,19 @@ describe('Batch Edit some Project Tags', () => {
     LogInPage.login(username,password)
     HomePage.clickAndCheckLeftHandMenuLink('Projects Overview');
     ProjectsOverviewPage.viewAndCheckProject('Test Project');
+    
+    //Save the originnal Tag Revisions of the items we we going to bulk edit
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1001');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1001_OriginalTagRevision');  
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1002');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1002_OriginalTagRevision');  
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1003');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1003_OriginalTagRevision');  
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1004');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1004_OriginalTagRevision');  
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1005');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1005_OriginalTagRevision');   
+
     //Add a filter value so the Tags you want to select are shown then select the specific ones you want
     ProjectViewPage.enterAndCheckFilterValue('Tag Name','D100');
     ProjectViewPage.selectSpecificTagFromTagName('D1001');
@@ -28,10 +41,26 @@ describe('Batch Edit some Project Tags', () => {
     ProjectViewPage.clickOnElement(ProjectViewPage.batchEditSelectedTagsIcon);
     RevisionViewBatchEditTagPage.clickOnElement(RevisionViewBatchEditTagPage.selectFieldsToReviewIcon);
     RevisionViewBatchEditTagPage.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[1]/preceding-sibling::td[1]`));
-    cy.wait(2000);
     RevisionViewBatchEditTagPage.clickOnElement(RevisionViewBatchEditTagPage.closeButton);
     RevisionViewBatchEditTagPage.enterNewValue('Description',newDescription)
     RevisionViewBatchEditTagPage.submitAndSignRevision();
+
+    //Get the new Tag Revisions of the items we have changed and check that they have all increased by 1 revision
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1001');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1001_NewTagRevision');  
+    ProjectViewPage.assertTagRevisionHasIncreased('D1001_OriginalTagRevision','D1001_NewTagRevision');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1002');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1002_NewTagRevision');  
+    ProjectViewPage.assertTagRevisionHasIncreased('D1002_OriginalTagRevision','D1002_NewTagRevision');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1003');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1003_NewTagRevision');  
+    ProjectViewPage.assertTagRevisionHasIncreased('D1003_OriginalTagRevision','D1003_NewTagRevision');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1004');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1004_NewTagRevision');  
+    ProjectViewPage.assertTagRevisionHasIncreased('D1004_OriginalTagRevision','D1004_NewTagRevision');
+    ProjectViewPage.enterAndCheckFilterValue('Tag Name','D1005');
+    ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'D1005_NewTagRevision');   
+    ProjectViewPage.assertTagRevisionHasIncreased('D1005_OriginalTagRevision','D1005_NewTagRevision');
     HomePage.logOut();
 });
 })

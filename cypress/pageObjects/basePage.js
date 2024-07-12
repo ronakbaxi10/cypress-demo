@@ -169,6 +169,15 @@ clickOnElement(element){
     .should('not.be.visible');
 }
 
+assertTagRevisionHasIncreased(originalTagRevisionAlias, newTagRevisionAlias){
+  //Remove the '0.' from the beginning of the version number, convert to Float and then compare
+  cy.get(`@${originalTagRevisionAlias}`).then((originalTagVersion) => {
+    cy.get(`@${newTagRevisionAlias}`).then((newTagVersion) => {
+      expect(parseFloat(newTagVersion.replace('0.',''))).to.eq(parseFloat(originalTagVersion.replace('0.','')) + 1);
+    });
+  });
+}
+
 checkSelectedFiltersValue(expectedValueInFilter) {
   //If the filter text is small is is just stored as the element's inner text. If it is long it creates
 //a new 'title' attribute so I have written code to cope with both scenarios:

@@ -127,15 +127,6 @@ class revisionViewEditTagPage extends BasePage {
       .should('contain',expectedStatus);
   }
 
-  assertTagRevisionHasIncreased(originalTagRevisionAlias, newTagRevisionAlias){
-    //Remove the '0.' from the beginning of the version number, convert to Float and then compare
-    cy.get(`@${originalTagRevisionAlias}`).then((originalTagVersion) => {
-      cy.get(`@${newTagRevisionAlias}`).then((newTagVersion) => {
-        expect(parseFloat(newTagVersion.replace('0.',''))).to.eq(parseFloat(originalTagVersion.replace('0.','')) + 1);
-      });
-    });
-  }
-
   copyPropertyToTag(propertyName,tagCopyTo){
     this.clickOnElement(this.copyButton);
     this.clickOnElement(cy.xpath(`(//td[@class='dxtl dxtl__B0' and text()='${propertyName}'])[1]/preceding-sibling::td[1]`));
