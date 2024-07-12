@@ -21,7 +21,6 @@ describe('Edit a Project Tag and Sign it. Then APPROVE it', () => {
     //Save original Tag Revision as Alias to use later
     ProjectViewPage.saveElementTextAsAlias(ProjectViewPage.revisionRow1Result,'originalTagRevision');    
     ProjectViewPage.clickViewTagDetailsButton();
-    //Save original Tag Description as Alias to use later
     RevisionViewEditTagPage.clickOnElement(RevisionViewEditTagPage.editTagButton);
     RevisionViewEditTagPage.checkTagStatus('In Draft');
     RevisionViewEditTagPage.editTagValue('Description',newDescription);
