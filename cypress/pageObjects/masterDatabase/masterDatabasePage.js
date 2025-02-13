@@ -53,6 +53,8 @@ get viewRevisionIcon() {
   return cy.get('span[title="View latest revision"]');
 }
 
+
+
 viewFirstTagDetails(){
   this.clickOnElement(this.viewFirstTagIcon);
   this.clickOnElement(this.viewRevisionIcon);
@@ -130,7 +132,7 @@ customiseViewAddColumn(columnToAdd){
   this.topPageTitle.should('contain','Master Database');
   this.coverWhilePageFullyLoads.should('not.be.visible');
   this.noDataMessage.should('not.be.visible');
-  this.updatingGridPopUp.should('not.be.visible');    
+  this.updatingGridPopUp.should('not.be.visible');
 }
 
 customiseViewRemoveColumn(columnToRemove){
@@ -242,6 +244,9 @@ checkRow1ColumnFieldEqualsValue(filterTitle, expectedValue){
       }
     })
   }
+
+
 }
+
 
 export default new masterDatabasePage();

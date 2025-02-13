@@ -34,14 +34,21 @@ module.exports = defineConfig(
     
   e2e: {
     chromeWebSecurity: false,
-    baseUrl:'http://172.187.168.54',
+    baseUrl:'http://172.20.37.90',
 
     //Anything you put in here can be accessed anywhere in the code using Cypress.env('name of the env')
     env: {
       username: 'pvadmin',
-      password: 'pvadmin12345#',
-      guardianVersion: 'V1.11.0.39'
+      password: 'pvadmin1234#',
+      guardianVersion: 'V2.0.0.68',
+      username1: 'Ron',
+      password1: 'pvadmin1234#',
     },
+
+  
+          
+
+
 
     setupNodeEvents(on, config) {
       // implement node event listeners here

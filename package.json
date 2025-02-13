@@ -12,12 +12,12 @@
   "author": "Matthew Hayhurst",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.11.0",
+    "cypress": "^13.17.0",
+    "cypress-iframe": "^1.0.1",
     "cypress-mochawesome-reporter": "^3.8.2",
-    "eslint": "^7.18.0",
-    "eslint-plugin-cypress": "^3.3.0",
-    "cypress-xpath": "^2.0.1",
     "cypress-real-events": "^1.12.0",
-    "cypress-iframe": "^1.0.1"
+    "cypress-xpath": "^2.0.1",
+    "eslint": "^7.18.0",
+    "eslint-plugin-cypress": "^3.3.0"
   }
 }

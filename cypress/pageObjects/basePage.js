@@ -62,6 +62,9 @@ class BasePage extends SharedFunctions {
 get projectsOverviewLeftHandMenuLink() {
   return cy.get('.sidebar-menu > li:nth-child(2) span');
 } 
+get projectOverviewLeftHandMenuLinkWhenHamburgerCollapsed(){
+  return cy.get('.active-link')
+}
 
 get masterDatabaseLeftHandMenuLink() {
   return cy.get('.sidebar-menu > li:nth-child(3) span');
@@ -81,7 +84,15 @@ get actionListLeftHandMenuLink() {
 
 get adminLeftHandMenuLink() {
   return cy.get('#adminMenu');
+}
+get adminDropdownCollapsed() {
+return cy.get('.treeview');
 } 
+
+get adminDropdownExpanded() {
+return cy.get('.treeview active')
+
+}
 
 get systemLeftHandMenuLink() {
   return cy.get('#systemMenu');  
@@ -153,6 +164,19 @@ saveElementTextAsAlias(element, aliasName){
   cy.get(`@${aliasName}`).then((text) => {
     cy.task("log","****************I have saved an alias called: "+aliasName+", that has the value: "+text+". ***************************");        
   });
+}
+
+
+/////////////////////////Hamburger Menu/////////////////
+
+get hamburgerMenu () {
+  return cy.get('.sidebar-toggle'); // Assuming it's an ID
+}
+
+
+clickHamburgerMenuButton(){
+ this.hamburgerMenu.click();
+
 }
 
 hoverOverElement(element){
@@ -256,8 +280,32 @@ clickAndCheckLeftHandMenuLink(linkToTest){
           }) 
       }   
     }
+clickAndCheckLeftHandMenuLinkWhenHamburgerCollapsed(linkToTest){
+  switch (linkToTest.toLowerCase()) {
+    case 'projects overview':
+      this.projectOverviewLeftHandMenuLinkWhenHamburgerCollapsed
+      .should('be.visible')
+      .click();
+      cy.url().should('include', 'ProjectsOverview');
+      this.topPageTitle.should('contain','Projects Overview')  
+      break; 
 
-  clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
+  }
+}
+clickAndExpandAdminMenu(linkToTest){
+  this.adminDropdownCollapsed.then($element => {
+   var attr = $element.attr('class');
+  if (attr == 'treeview') {
+    //The admin menu is NOT already open - so opening it
+    this.adminLeftHandMenuLink
+    .should('be.visible')
+    .click(); 
+}
+else {
+  //The admin menu IS already open!
+}
+  })}
+clickAndCheckLeftHandMenuLink_AdminSubMenu(linkToTest){
     //Open the Admin Drop Down menu if it is not already open
     this.coverWhilePageFullyLoads.should('not.be.visible');
     this.adminLeftHandMenuLink.then($element => {
