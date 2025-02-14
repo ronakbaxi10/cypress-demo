@@ -56,23 +56,23 @@ describe('Check Left Hand Menu Links are Working', () => {
 //     cy.go('back')
 //     HomePage.logOut();
 // });
-//    it('Check Navigation Hamburger Menu Collapse', () => {
-//      cy.visit('/guardian/Default.aspx');  
-//      LogInPage.login(username,password)
-//      HomePage.clickAndCheckLeftHandMenuLink('projects overview');
-//      HomePage.clickHamburgerMenuButton();
-//      cy.reload();
-//      cy.get('.logo-lg')
-//      HomePage.logOut();
-//      LogInPage.login(username1,password1)
-//      cy.get('.logo-lg')
-//      .should('exist'); 
-//      HomePage.logOut();
-//      LogInPage.login(username,password)
-//        cy.xpath('//*[@id="form1"]/div[7]/header/a/span[2]/img')
-//      .should('exist'); 
+   it('Check Navigation Hamburger Menu Collapse', () => {
+     cy.visit('/guardian/Default.aspx');  
+     LogInPage.login(username,password)
+     HomePage.clickAndCheckLeftHandMenuLink('projects overview');
+     HomePage.clickHamburgerMenuButton();
+     cy.reload();
+     cy.get('.logo-lg')
+     HomePage.logOut();
+     LogInPage.login(username1,password1)
+     cy.get('.logo-lg')
+     .should('exist'); 
+     HomePage.logOut();
+     LogInPage.login(username,password)
+       cy.xpath('//*[@id="form1"]/div[7]/header/a/span[2]/img')
+     .should('exist'); 
  
-//  });
+ });
 
  it('Check Navigation Hamburger Menu Expand', () => {
   cy.visit('/guardian/Default.aspx');  
